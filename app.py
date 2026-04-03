@@ -8,19 +8,46 @@ st.sidebar.title("Menu")
 page = st.sidebar.radio("Go to", ["MIS-Status", "MIS-Reports"])
 
 # ---------------- DASHBOARD ----------------
-if page == "MIS-Status":
-    st.title("📊 Project Progress")
+import pandas as pd
 
-    cols = st.columns(3)
+st.title("📊 MIS Status")
 
-    i = 0
-    for form_name, config in FORMS.items():
+# 🔴 Change this to your actual column name
+landscape_col = "landscape"
+
+forms_list = list(FORMS.items())
+
+# 👉 Number of boxes per row
+cols_per_row = 3
+
+for i in range(0, len(forms_list), cols_per_row):
+    cols = st.columns(cols_per_row)
+
+    for j in range(cols_per_row):
+        if i + j >= len(forms_list):
+            break
+
+        form_name, config = forms_list[i + j]
+
         df = load_odk_data(config["form_id"])
-        
-        with cols[i % 3]:
-            st.metric(form_name, len(df))
-        
-        i += 1
+
+        with cols[j]:
+            st.markdown(f"### 📦 {form_name}")
+
+            if df.empty:
+                st.write("No data")
+                continue
+
+            # Total count
+            st.write(f"**Total: {len(df)}**")
+
+            if landscape_col in df.columns:
+                grouped = df.groupby(landscape_col).size().reset_index(name="count")
+
+                for _, row in grouped.iterrows():
+                    st.write(f"{row[landscape_col]} → {row['count']}")
+            else:
+                st.warning(f"{landscape_col} not found")
 
 
 # ---------------- DOWNLOADS ----------------
