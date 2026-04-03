@@ -13,7 +13,7 @@ if page == "MIS-Status":
 
     st.title("📊 MIS Status")
 
-    landscape_col = "landscape"  # change if needed
+    landscape_col = "plot_reg-landscape"
 
     forms_list = list(FORMS.items())
     cols_per_row = 3
