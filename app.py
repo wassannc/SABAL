@@ -13,7 +13,7 @@ if page == "MIS-Status":
     st.title("📊 MIS Status")
     from datetime import datetime
 
-st.title("📊 MIS Status")
+    st.title("📊 MIS Status")
 
     # ---------------- FILTERS ----------------
     col1, col2 = st.columns(2)
