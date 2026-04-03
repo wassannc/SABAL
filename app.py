@@ -7,11 +7,6 @@ st.set_page_config(page_title="Project Dashboard", layout="wide")
 st.sidebar.title("Menu")
 page = st.sidebar.radio("Go to", ["MIS-Status", "MIS-Reports"])
 
-# ---------------- DASHBOARD ----------------
-import pandas as pd
-
-st.title("📊 MIS Status")
-
 # ---------------- MIS STATUS ----------------
 if page == "MIS-Status":
     import pandas as pd
