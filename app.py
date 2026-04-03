@@ -7,16 +7,13 @@ st.set_page_config(page_title="Project Dashboard", layout="wide")
 st.sidebar.title("Menu")
 page = st.sidebar.radio("Go to", ["MIS-Status", "MIS-Reports"])
 
-# ---------------- MIS STATUS ----------------
 if page == "MIS-Status":
     import pandas as pd
 
     st.title("📊 MIS Status")
 
-    landscape_col = "plot_reg.landscape"
-
     forms_list = list(FORMS.items())
-    cols_per_row = 3
+    cols_per_row = 2   # 👈 2 boxes per row
 
     for i in range(0, len(forms_list), cols_per_row):
         cols = st.columns(cols_per_row)
@@ -27,21 +24,34 @@ if page == "MIS-Status":
 
             form_name, config = forms_list[i + j]
             df = load_odk_data(config["form_id"])
+            landscape_col = config.get("landscape_col")
 
             with cols[j]:
-                st.markdown(f"### 📦 {form_name}")
+                st.markdown(f"#### 📦 {form_name}")
 
                 if df.empty:
                     st.write("No data")
                     continue
 
-                st.write(f"**Total: {len(df)}**")
+                st.caption(f"Total: {len(df)}")
 
-                if landscape_col in df.columns:
-                    grouped = df.groupby(landscape_col).size().reset_index(name="count")
+                if landscape_col and landscape_col in df.columns:
+                    grouped = (
+                        df.groupby(landscape_col)
+                        .size()
+                        .reset_index(name="Count")
+                        .sort_values("Count", ascending=False)
+                    )
 
-                    for _, row in grouped.iterrows():
-                        st.write(f"{row[landscape_col]} → {row['count']}")
+                    grouped.columns = ["Landscape", "Count"]
+
+                    # 👇 compact table
+                    st.dataframe(
+                        grouped,
+                        use_container_width=True,
+                        height=200   # 👈 limits size
+                    )
+
                 else:
                     st.warning(f"{landscape_col} not found")
 
