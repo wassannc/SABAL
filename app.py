@@ -12,59 +12,58 @@ import pandas as pd
 
 st.title("📊 MIS Status")
 
-# 🔴 Change this to your actual column name
-landscape_col = "landscape"
+# ---------------- MIS STATUS ----------------
+if page == "MIS-Status":
+    import pandas as pd
 
-forms_list = list(FORMS.items())
+    st.title("📊 MIS Status")
 
-# 👉 Number of boxes per row
-cols_per_row = 3
+    landscape_col = "landscape"  # change if needed
 
-for i in range(0, len(forms_list), cols_per_row):
-    cols = st.columns(cols_per_row)
+    forms_list = list(FORMS.items())
+    cols_per_row = 3
 
-    for j in range(cols_per_row):
-        if i + j >= len(forms_list):
-            break
+    for i in range(0, len(forms_list), cols_per_row):
+        cols = st.columns(cols_per_row)
 
-        form_name, config = forms_list[i + j]
+        for j in range(cols_per_row):
+            if i + j >= len(forms_list):
+                break
 
-        df = load_odk_data(config["form_id"])
+            form_name, config = forms_list[i + j]
+            df = load_odk_data(config["form_id"])
 
-        with cols[j]:
-            st.markdown(f"### 📦 {form_name}")
+            with cols[j]:
+                st.markdown(f"### 📦 {form_name}")
 
-            if df.empty:
-                st.write("No data")
-                continue
+                if df.empty:
+                    st.write("No data")
+                    continue
 
-            # Total count
-            st.write(f"**Total: {len(df)}**")
+                st.write(f"**Total: {len(df)}**")
 
-            if landscape_col in df.columns:
-                grouped = df.groupby(landscape_col).size().reset_index(name="count")
+                if landscape_col in df.columns:
+                    grouped = df.groupby(landscape_col).size().reset_index(name="count")
 
-                for _, row in grouped.iterrows():
-                    st.write(f"{row[landscape_col]} → {row['count']}")
-            else:
-                st.warning(f"{landscape_col} not found")
+                    for _, row in grouped.iterrows():
+                        st.write(f"{row[landscape_col]} → {row['count']}")
+                else:
+                    st.warning(f"{landscape_col} not found")
 
 
-# ---------------- DOWNLOADS ----------------
+# ---------------- MIS REPORTS ----------------
 elif page == "MIS-Reports":
-    st.title("📥 Download Data")
+    st.title("📥 MIS Reports")
 
     form_name = st.selectbox("Select Form", list(FORMS.keys()))
-    
     config = FORMS[form_name]
+
     df = load_odk_data(config["form_id"])
 
     if df.empty:
         st.warning("No data found")
     else:
-        columns = config["columns"]
-        
-        available_cols = [col for col in columns if col in df.columns]
+        available_cols = [col for col in config["columns"] if col in df.columns]
         df_filtered = df[available_cols]
 
         st.dataframe(df_filtered)
