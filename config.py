@@ -32,7 +32,7 @@ FORMS = {
     "Agri Service Centers": {
         "form_id": "Agri Service Centers",
         "columns": ["center"],
-        "landscape_col": "pd-landscape"
+        "landscape_col": "pd.landscape"
     },
     "Large & Small Ruminants": {
         "form_id": "Large_Small_Ruminants",
