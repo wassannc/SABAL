@@ -1,14 +1,14 @@
 FORMS = {
     "Farmer Register": {
-        "form_id": "FarmerRegister-NF",
-        "columns": ["name", "village", "phone"]
+        "form_id": "FarmerRegister_NF",
+        "columns": ["plot_reg-landscape", "plot_reg-village", "plot_reg-farmer_name"]
     },
     "Activities": {
         "form_id": "Activities-NF",
-        "columns": ["activity_type", "beneficiary", "date"]
+        "columns": ["Primary_details-landscape", "Primary_details-village", "Primary_details-farmer_select"]
     },
     "BRC": {
-        "form_id": "Bio Resource Center- (BRC)",
-        "columns": ["center_name", "members"]
+        "form_id": "BRC_Units",
+        "columns": ["table_list_pd-landscape", "table_list_pd-dj_sale_farmer"]
     }
 }
