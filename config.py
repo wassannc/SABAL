@@ -1,12 +1,12 @@
 FORMS = {
     "Farmer Register": {
         "form_id": "FarmerRegister_NF",
-        "columns": ["name", "village"],
+        "columns": ["center"],
         "landscape_col": "plot_reg.landscape"
     },
     "Activities": {
         "form_id": "Activities-NF",
-        "columns": ["activity"],
+        "columns": ["center"],
         "landscape_col": "Primary_details.landscape"
     },
     "BRC": {
