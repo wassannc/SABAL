@@ -11,6 +11,21 @@ if page == "MIS-Status":
     import pandas as pd
 
     st.title("📊 MIS Status")
+    from datetime import datetime
+
+st.title("📊 MIS Status")
+
+# ---------------- FILTERS ----------------
+col1, col2 = st.columns(2)
+
+with col1:
+    selected_landscape = st.text_input("Filter by Landscape (optional)")
+
+with col2:
+    selected_month = st.selectbox(
+        "Select Month",
+        ["All"] + [f"{m:02d}" for m in range(1, 13)]
+    )
 
     forms_list = list(FORMS.items())
     cols_per_row = 2   # 👈 2 boxes per row
@@ -24,6 +39,27 @@ if page == "MIS-Status":
 
             form_name, config = forms_list[i + j]
             df = load_odk_data(config["form_id"])
+            # ---------------- APPLY FILTERS ----------------
+
+# Landscape filter (dynamic column)
+landscape_col = config.get("landscape_col")
+
+if selected_landscape and landscape_col in df.columns:
+    df = df[df[landscape_col].astype(str).str.contains(selected_landscape, case=False, na=False)]
+
+# Month filter (assuming submission date exists)
+date_cols = ["__system.submissionDate", "meta.submissionDate"]
+
+date_col = None
+for col in date_cols:
+    if col in df.columns:
+        date_col = col
+        break
+
+if selected_month != "All" and date_col:
+    df[date_col] = pd.to_datetime(df[date_col], errors="coerce")
+    df = df[df[date_col].dt.month == int(selected_month)]
+    
             landscape_col = config.get("landscape_col")
 
             with cols[j]:
