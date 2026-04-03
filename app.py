@@ -5,10 +5,10 @@ from utils import load_odk_data
 st.set_page_config(page_title="Project Dashboard", layout="wide")
 
 st.sidebar.title("Menu")
-page = st.sidebar.radio("Go to", ["Dashboard", "Downloads"])
+page = st.sidebar.radio("Go to", ["MIS-Status", "MIS-Reports"])
 
 # ---------------- DASHBOARD ----------------
-if page == "Dashboard":
+if page == "MIS-Status":
     st.title("📊 Project Progress")
 
     cols = st.columns(3)
@@ -24,7 +24,7 @@ if page == "Dashboard":
 
 
 # ---------------- DOWNLOADS ----------------
-elif page == "Downloads":
+elif page == "MIS-Reports":
     st.title("📥 Download Data")
 
     form_name = st.selectbox("Select Form", list(FORMS.keys()))
