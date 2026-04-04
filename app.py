@@ -62,7 +62,7 @@ if page == "MIS-Status":
     
         landscape_col = config.get("landscape_col")
 
-            with cols[j]:
+        with cols[j]:
                 st.markdown(f"#### 📦 {form_name}")
 
                 if df.empty:
