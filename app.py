@@ -61,20 +61,18 @@ if page == "MIS-Status":
                 df = df[df[landscape_col].astype(str).str.contains(selected_landscape, case=False, na=False)]
 
             # Month filter
-            date_cols = ["__system.submissionDate", "meta.submissionDate"]
-            date_col = None
+date_cols = ["__system.submissionDate", "meta.submissionDate"]
+date_col = None
 
-            for col in date_cols:
-                if col in df.columns:
-                    date_col = col
-                    break
+for col in date_cols:
+    if col in df.columns:
+        date_col = col
+        break
 
-            if selected_month != "All" and date_col:
-                df[date_col] = pd.to_datetime(df[date_col], errors="coerce")
-                if selected_month != "All" and date_col:
-        df[date_col] = pd.to_datetime(df[date_col], errors="coerce")
-        month_num = list(calendar.month_name).index(selected_month)
-        df = df[df[date_col].dt.month == month_num]
+if selected_month != "All" and date_col:
+    df[date_col] = pd.to_datetime(df[date_col], errors="coerce")
+    month_num = list(calendar.month_name).index(selected_month)
+    df = df[df[date_col].dt.month == month_num]
 
             # ---------------- UI ----------------
             with cols[j]:
