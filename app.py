@@ -17,21 +17,21 @@ if page == "MIS-Status":
 
     with col1:
         # Collect all landscapes from all forms
-    all_landscapes = set()
+        all_landscapes = set()
 
-    for form_name, config in FORMS.items():
-        df_temp = load_odk_data(config["form_id"])
-        col = config.get("landscape_col")
+        for form_name, config in FORMS.items():
+            df_temp = load_odk_data(config["form_id"])
+            col = config.get("landscape_col")
 
-        if col and col in df_temp.columns:
-            all_landscapes.update(df_temp[col].dropna().unique())
+            if col and col in df_temp.columns:
+                all_landscapes.update(df_temp[col].dropna().unique())
 
-    all_landscapes = sorted(all_landscapes)
+        all_landscapes = sorted(all_landscapes)
 
-    selected_landscape = st.selectbox(
-        "Select Landscape",
-        ["All"] + list(all_landscapes)
-    )
+        selected_landscape = st.selectbox(
+            "Select Landscape",
+            ["All"] + list(all_landscapes)
+        )
 
     with col2:
         selected_month = st.selectbox(
