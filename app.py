@@ -72,9 +72,9 @@ if page == "MIS-Status":
             if selected_month != "All" and date_col:
                 df[date_col] = pd.to_datetime(df[date_col], errors="coerce")
                 if selected_month != "All" and date_col:
-    df[date_col] = pd.to_datetime(df[date_col], errors="coerce")
-    month_num = list(calendar.month_name).index(selected_month)
-    df = df[df[date_col].dt.month == month_num]
+        df[date_col] = pd.to_datetime(df[date_col], errors="coerce")
+        month_num = list(calendar.month_name).index(selected_month)
+        df = df[df[date_col].dt.month == month_num]
 
             # ---------------- UI ----------------
             with cols[j]:
