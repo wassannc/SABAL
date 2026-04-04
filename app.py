@@ -43,7 +43,7 @@ if page == "MIS-Status":
 
             for j in range(cols_per_row):
                 if i + j >= len(forms_list):
-                break
+                   break
 
             form_name, config = forms_list[i + j]
             df = load_odk_data(config["form_id"])
