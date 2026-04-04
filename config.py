@@ -31,7 +31,7 @@ FORMS = {
     },
     "Agri Service Centers": {
         "form_id": "Agri Service Centers",
-        "columns": ["center"],
+        "columns": ["SubmissionDate","pd.landscape","pd.gp","pd.village","farm_equipmnt_hired","ASC_Entp","ud.chc_equipmnt_rented_date","ud.chc_equipmnt_hired_farmer","ud.chc_equipmnt_total_hours_used","ud.total_hired_cost"],
         "landscape_col": "pd.landscape"
     },
     "Large & Small Ruminants": {
