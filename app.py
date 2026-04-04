@@ -16,12 +16,31 @@ if page == "MIS-Status":
     col1, col2 = st.columns(2)
 
     with col1:
-        selected_landscape = st.text_input("Filter by Landscape (optional)")
+        # Collect all landscapes from all forms
+all_landscapes = set()
+
+for form_name, config in FORMS.items():
+    df_temp = load_odk_data(config["form_id"])
+    col = config.get("landscape_col")
+
+    if col and col in df_temp.columns:
+        all_landscapes.update(df_temp[col].dropna().unique())
+
+all_landscapes = sorted(all_landscapes)
+
+selected_landscape = st.selectbox(
+    "Select Landscape",
+    ["All"] + list(all_landscapes)
+)
 
     with col2:
         selected_month = st.selectbox(
             "Select Month",
-            ["All"] + [f"{m:02d}" for m in range(1, 13)]
+            import calendar
+
+months = ["All"] + [calendar.month_name[i] for i in range(1, 13)]
+
+selected_month = st.selectbox("Select Month", months)
         )
 
     forms_list = list(FORMS.items())
@@ -56,7 +75,10 @@ if page == "MIS-Status":
 
             if selected_month != "All" and date_col:
                 df[date_col] = pd.to_datetime(df[date_col], errors="coerce")
-                df = df[df[date_col].dt.month == int(selected_month)]
+                if selected_month != "All" and date_col:
+    df[date_col] = pd.to_datetime(df[date_col], errors="coerce")
+    month_num = list(calendar.month_name).index(selected_month)
+    df = df[df[date_col].dt.month == month_num]
 
             # ---------------- UI ----------------
             with cols[j]:
