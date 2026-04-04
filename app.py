@@ -67,7 +67,7 @@ if page == "MIS-Status":
 
                 if df.empty:
                     st.write("No data")
-                    continue
+                continue
 
                 st.caption(f"Total: {len(df)}")
 
