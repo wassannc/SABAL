@@ -16,7 +16,7 @@ FORMS = {
     },
     "Micro Enterprizes": {
         "form_id": "Micro Enterprizes",
-        "columns": ["center"],
+        "columns": ["SubmissionDate","table_list_pd.landscape","table_list_pd.gp","table_list_pd.village","table_list_pd1.farmer_name","table_list_pd1.processing_hub_tool","table_list_pd1.processing_date","table_list_pd1.processed_for","table_list_pd2.processing_farmer_village","table_list_pd2.processing_farmer","table_list_pd2.processing_qty_kgs","table_list_pd2.rent_amount","table_list_pd3.Data_sub_by"],
         "landscape_col": "table_list_pd.landscape"
     },
     "Meetings&Trainings": {
