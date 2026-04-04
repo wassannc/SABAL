@@ -6,7 +6,7 @@ FORMS = {
     },
     "Activities": {
         "form_id": "Activities-NF",
-        "columns": ["center"],
+        "columns": ["Primary_details.date","Primary_details.landscape","Primary_details.gp","Primary_details.village","Primary_details.farmer_name","Primary_details.plot_ext","crop_activity","Nf_activites.nf_inputs","Nf_activites.Other_nf_input","Nf_activites.Qty_other_nfinput"],
         "landscape_col": "Primary_details.landscape"
     },
     "BRC": {
