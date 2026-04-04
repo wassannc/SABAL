@@ -11,7 +11,7 @@ FORMS = {
     },
     "BRC": {
         "form_id": "BRC_Units",
-        "columns": ["center"],
+        "columns": ["SubmissionDate","table_list_pd.landscape","table_list_pd.brc_unit","table_list_pd.product_name","table_list_pd.brc_sale_date","table_list_pd.dj_sale_farmer","table_list_pd.gender","table_list_pd.sale_village","table_list_sd.sale_qty","table_list_sd.total_income","table_list_cd.crops","table_list_cd.crop_ext"],
         "landscape_col": "table_list_pd.landscape"
     },
     "Micro Enterprizes": {
