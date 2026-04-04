@@ -60,7 +60,7 @@ if page == "MIS-Status":
         df[date_col] = pd.to_datetime(df[date_col], errors="coerce")
         df = df[df[date_col].dt.month == int(selected_month)]
     
-            landscape_col = config.get("landscape_col")
+        landscape_col = config.get("landscape_col")
 
             with cols[j]:
                 st.markdown(f"#### 📦 {form_name}")
