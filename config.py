@@ -36,7 +36,7 @@ FORMS = {
     },
     "Large & Small Ruminants": {
         "form_id": "Large_Small_Ruminants",
-        "columns": ["center"],
+        "columns": ["table_list_df.Month","table_list_df.Monthly_MIS","table_list_df.landscape","table_list_df.gp","table_list_df.village","table_list_df.livestock_type","table_list_df.Farmer"],
         "landscape_col": "table_list_df.landscape"
     } 
 }
