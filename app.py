@@ -74,8 +74,8 @@ if selected_month != "All" and date_col:
     month_num = list(calendar.month_name).index(selected_month)
     df = df[df[date_col].dt.month == month_num]
 
-            # ---------------- UI ----------------
-            with cols[j]:
+# ---------------- UI ----------------
+with cols[j]:
                 st.markdown(f"#### 📦 {form_name}")
 
                 if df.empty:
