@@ -21,7 +21,7 @@ FORMS = {
     },
     "Meetings&Trainings": {
         "form_id": "Capacity_building",
-        "columns": ["SubmissionDate","CB.info.landscape","CB.info.gp"],
+        "columns": ["CB.info.landscape","CB.info.gp"],
         "landscape_col": "CB_info.landscape"
     },
     "Intensification of Orchards": {
