@@ -5,7 +5,9 @@ from utils import load_odk_data
 st.set_page_config(page_title="Project Dashboard", layout="wide")
 
 st.sidebar.title("Menu")
-page = st.sidebar.radio("Go to", ["MIS-Status", "MIS-Reports"])
+menu_items = ["MIS-Status"] + list(FORMS.keys())
+
+page = st.sidebar.radio("Go to", menu_items)
 
 if page == "MIS-Status":
     import pandas as pd
@@ -97,26 +99,27 @@ if page == "MIS-Status":
                 else:
                     st.warning(f"{landscape_col} not found")
 
-# ---------------- MIS REPORTS ----------------
-elif page == "MIS-Reports":
-    st.title("📥 MIS Reports")
+elif page in FORMS:
+    st.title(f"📥 {page} Report")
 
-    form_name = st.selectbox("Select Form", list(FORMS.keys()))
-    config = FORMS[form_name]
-
+    config = FORMS[page]
     df = load_odk_data(config["form_id"])
 
     if df.empty:
         st.warning("No data found")
     else:
-        available_cols = [col for col in config["columns"] if col in df.columns]
+        # Select only required columns
+        columns = config.get("columns", [])
+        available_cols = [col for col in columns if col in df.columns]
+
         df_filtered = df[available_cols]
 
-        st.dataframe(df_filtered)
+        st.dataframe(df_filtered, use_container_width=True)
 
+        # Download button
         st.download_button(
-            "Download CSV",
-            df_filtered.to_csv(index=False),
-            f"{form_name}.csv",
-            "text/csv"
+            label="⬇ Download CSV",
+            data=df_filtered.to_csv(index=False),
+            file_name=f"{page}_report.csv",
+            mime="text/csv"
         )
