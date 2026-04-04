@@ -33,21 +33,21 @@ if page == "MIS-Status":
             ["All"] + list(all_landscapes)
         )
         
-import calendar  # move to top
+        import calendar  # move to top
 
-forms_list = list(FORMS.items())
-cols_per_row = 2
+        forms_list = list(FORMS.items())
+        cols_per_row = 2
 
-for i in range(0, len(forms_list), cols_per_row):
-    cols = st.columns(cols_per_row)
+        for i in range(0, len(forms_list), cols_per_row):
+            cols = st.columns(cols_per_row)
 
-    for j in range(cols_per_row):
-        if i + j >= len(forms_list):
-            break
+            for j in range(cols_per_row):
+                if i + j >= len(forms_list):
+                break
 
-        form_name, config = forms_list[i + j]
-        df = load_odk_data(config["form_id"])
-        landscape_col = config.get("landscape_col")
+            form_name, config = forms_list[i + j]
+            df = load_odk_data(config["form_id"])
+            landscape_col = config.get("landscape_col")
 
         # -------- APPLY FILTERS --------
 
