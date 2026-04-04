@@ -33,11 +33,11 @@ if page == "MIS-Status":
             ["All"] + list(all_landscapes)
         )
         
-    import calendar
-    with col2:
-    months = ["All"] + [calendar.month_name[i] for i in range(1, 13)]
+        import calendar
+        with col2:
+        months = ["All"] + [calendar.month_name[i] for i in range(1, 13)]
 
-    selected_month = st.selectbox("Select Month", months)
+        selected_month = st.selectbox("Select Month", months)
     
     forms_list = list(FORMS.items())
     cols_per_row = 2
