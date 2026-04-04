@@ -5,9 +5,19 @@ from utils import load_odk_data
 st.set_page_config(page_title="Project Dashboard", layout="wide")
 
 st.sidebar.title("Menu")
-menu_items = ["MIS-Status"] + list(FORMS.keys())
 
-page = st.sidebar.radio("Go to", menu_items)
+main_section = st.sidebar.radio(
+    "Select Section",
+    ["MIS-Status", "MIS-Reports"]
+)
+
+if main_section == "MIS-Reports":
+    page = st.sidebar.radio(
+        "Select Form",
+        list(FORMS.keys())
+    )
+else:
+    page = "MIS-Status"
 
 if page == "MIS-Status":
     import pandas as pd
