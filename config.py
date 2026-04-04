@@ -26,7 +26,7 @@ FORMS = {
     },
     "Intensification of Orchards": {
         "form_id": "Orchards_Intensification",
-        "columns": ["SubmissionDate","basic_info-landscape","basic_info-gp","basic_info-village","basic_info-orchard_type","basic_info-farmer_add","type"],
+        "columns": ["SubmissionDate","basic_info.landscape","basic_info.gp","basic_info.village","basic_info.orchard_type","basic_info.farmer_add","type"],
         "landscape_col": "basic_info.landscape"
     },
     "Agri Service Centers": {
