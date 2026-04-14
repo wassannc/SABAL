@@ -137,53 +137,53 @@ elif page in FORMS:
     df = load_odk_data(config["form_id"])
 
     if df.empty:
-    st.warning("No data found")
+        st.warning("No data found")
 
-else:
-    # Select only required columns
-    columns = config.get("columns", [])
-    available_cols = [col for col in columns if col in df.columns]
+    else:
+        # Select only required columns
+        columns = config.get("columns", [])
+        available_cols = [col for col in columns if col in df.columns]
 
-    df_filtered = df[available_cols]
+        df_filtered = df[available_cols]
 
-    st.dataframe(df_filtered, use_container_width=True)
+        st.dataframe(df_filtered, use_container_width=True)
 
-    # 🔥 Sync button (INSIDE else)
-    if st.button("📤 Sync to Google Sheet"):
+        # 🔥 Sync button (INSIDE else)
+        if st.button("📤 Sync to Google Sheet"):
 
-        df_sync = df_filtered.copy()
+            df_sync = df_filtered.copy()
 
-        # Landscape
-        landscape_col = config.get("landscape_col")
-        if landscape_col in df.columns:
-            df_sync["Landscape"] = df[landscape_col]
-        else:
-            df_sync["Landscape"] = "Unknown"
+            # Landscape
+            landscape_col = config.get("landscape_col")
+            if landscape_col in df.columns:
+                df_sync["Landscape"] = df[landscape_col]
+            else:
+                df_sync["Landscape"] = "Unknown"
 
-        # Date
-        date_cols = ["__system.submissionDate", "meta.submissionDate"]
-        df_sync["Date"] = None
+            # Date
+            date_cols = ["__system.submissionDate", "meta.submissionDate"]
+            df_sync["Date"] = None
 
-        for col in date_cols:
-            if col in df.columns:
-                df_sync["Date"] = pd.to_datetime(df[col], errors="coerce")
-                break
+            for col in date_cols:
+                if col in df.columns:
+                    df_sync["Date"] = pd.to_datetime(df[col], errors="coerce")
+                    break
 
-        # Form + Count
-        df_sync["Form"] = page
-        df_sync["Count"] = 1
+            # Form + Count
+            df_sync["Form"] = page
+            df_sync["Count"] = 1
 
-        # Final structure
-        df_sync = df_sync[["Landscape", "Date", "Form", "Count"]]
+            # Final structure
+            df_sync = df_sync[["Landscape", "Date", "Form", "Count"]]
 
-        push_to_google_sheet(df_sync)
+            push_to_google_sheet(df_sync)
 
-        st.success("✅ Data synced successfully!")
+            st.success("✅ Data synced successfully!")
 
-    # Download button
-    st.download_button(
-        label="⬇ Download CSV",
-        data=df_filtered.to_csv(index=False),
-        file_name=f"{page}_report.csv",
-        mime="text/csv"
-    )
+        # Download button
+        st.download_button(
+            label="⬇ Download CSV",
+            data=df_filtered.to_csv(index=False),
+            file_name=f"{page}_report.csv",
+            mime="text/csv"
+        )
