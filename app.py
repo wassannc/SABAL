@@ -192,38 +192,6 @@ elif page in FORMS:
 
         st.dataframe(df_filtered, use_container_width=True)
 
-        # 🔥 Sync button (INSIDE else)
-        if st.button("📤 Sync to Google Sheet"):
-
-            df_sync = df_filtered.copy()
-
-            # Landscape
-            landscape_col = config.get("landscape_col")
-            if landscape_col in df.columns:
-                df_sync["Landscape"] = df[landscape_col]
-            else:
-                df_sync["Landscape"] = "Unknown"
-
-            # Date
-            date_cols = ["__system.submissionDate", "meta.submissionDate"]
-            df_sync["Date"] = None
-
-            for col in date_cols:
-                if col in df.columns:
-                    df_sync["Date"] = pd.to_datetime(df[col], errors="coerce")
-                    break
-
-            # Form + Count
-            df_sync["Form"] = page
-            df_sync["Count"] = 1
-
-            # Final structure
-            df_sync = df_sync[["Landscape", "Date", "Form", "Count"]]
-
-            push_to_google_sheet(df_sync)
-
-            st.success("✅ Data synced successfully!")
-
         # Download button
         st.download_button(
             label="⬇ Download CSV",
