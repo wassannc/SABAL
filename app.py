@@ -1,6 +1,27 @@
+import gspread
+from google.oauth2.service_account import Credentials
 import streamlit as st
+import pandas as pd
 from config import FORMS
 from utils import load_odk_data
+def push_to_google_sheet(df):
+
+    scope = [
+        "https://www.googleapis.com/auth/spreadsheets",
+        "https://www.googleapis.com/auth/drive"
+    ]
+
+    creds = Credentials.from_service_account_info(
+        st.secrets["gcp_service_account"], scopes=scope
+    )
+
+    client = gspread.authorize(creds)
+
+    sheet = client.open("Reminder_SABAL").worksheet("Data")
+
+    sheet.clear()
+    sheet.update([df.columns.values.tolist()] + df.values.tolist())
+    
 st.set_page_config(page_title="MIS Tracking-SABAL", layout="wide")
 st.title("📊 MIS Tracking - SABAL")
 
