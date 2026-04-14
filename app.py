@@ -45,6 +45,50 @@ if page == "MIS-Status":
     import calendar
 
     st.title(" MIS Status")
+    if st.button("📤 Sync ALL Forms to Google Sheet"):
+
+        all_data = []
+
+        for form_name, config in FORMS.items():
+            df = load_odk_data(config["form_id"])
+
+            if df.empty:
+                continue
+
+            landscape_col = config.get("landscape_col")
+
+            # Landscape
+            if landscape_col in df.columns:
+                landscape = df[landscape_col]
+            else:
+                landscape = "Unknown"
+
+            # Date
+            date_cols = ["__system.submissionDate", "meta.submissionDate"]
+            date_series = None
+
+            for col in date_cols:
+                if col in df.columns:
+                    date_series = pd.to_datetime(df[col], errors="coerce")
+                    break
+
+            temp_df = pd.DataFrame({
+                "Landscape": landscape,
+                "Date": date_series,
+                "Form": form_name,
+                "Count": 1
+            })
+
+            all_data.append(temp_df)
+
+        if all_data:
+            final_df = pd.concat(all_data, ignore_index=True)
+
+            push_to_google_sheet(final_df)
+
+            st.success("✅ All forms synced successfully!")
+        else:
+            st.warning("No data available to sync")
 
     # ---------------- FILTERS ----------------
     col1, col2 = st.columns(2)
