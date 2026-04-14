@@ -146,7 +146,32 @@ elif page in FORMS:
         df_filtered = df[available_cols]
 
         st.dataframe(df_filtered, use_container_width=True)
+    # 🔥 Sync button
+    if st.button("📤 Sync to Google Sheet"):
+    
+        # Prepare required format
+        df_sync = df_filtered.copy()
+    
+        # 👉 Add required columns (important for your alert system)
+        df_sync["Landscape"] = df[config.get("landscape_col")]
+    
+        # 👉 Add Date column (choose available one)
+        date_cols = ["__system.submissionDate", "meta.submissionDate"]
+        for col in date_cols:
+            if col in df.columns:
+                df_sync["Date"] = pd.to_datetime(df[col], errors="coerce")
+                break
 
+        df_sync["Form"] = page
+        df_sync["Count"] = 1
+
+        # Keep only required columns
+        df_sync = df_sync[["Landscape", "Date", "Form", "Count"]]
+
+        # Push to Google Sheet
+        push_to_google_sheet(df_sync)
+
+        st.success("✅ Data synced successfully!")
         # Download button
         st.download_button(
             label="⬇ Download CSV",
