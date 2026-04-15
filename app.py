@@ -111,7 +111,7 @@ if page == "MIS-Status":
 
         if all_data:
             final_df = pd.concat(all_data, ignore_index=True)
-
+            final_df = final_df.sort_values(["Month", "Landscape"])
             push_to_google_sheet(final_df)
 
             st.success("✅ All forms synced successfully!")
