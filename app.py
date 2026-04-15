@@ -19,8 +19,23 @@ def push_to_google_sheet(df):
 
     sheet = client.open("Reminder_SABAL").worksheet("Data")
 
+    # 🔥 SAFE CONVERSION
+    df = df.fillna("").astype(str)
+
+    # Prepare data
+    data = [df.columns.values.tolist()] + df.values.tolist()
+
+    # Clear sheet
     sheet.clear()
-    sheet.update([df.columns.values.tolist()] + df.values.tolist())
+
+    # Upload in chunks (prevents error)
+    chunk_size = 5000
+
+    for i in range(0, len(data), chunk_size):
+        sheet.update(
+            f"A{i+1}",
+            data[i:i+chunk_size]
+        )
     
 st.set_page_config(page_title="MIS Tracking-SABAL", layout="wide")
 st.title("📊 MIS Tracking - SABAL")
