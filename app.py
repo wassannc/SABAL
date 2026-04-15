@@ -111,7 +111,11 @@ if page == "MIS-Status":
 
         if all_data:
             final_df = pd.concat(all_data, ignore_index=True)
-            final_df = final_df.sort_values(["Month", "Landscape"])
+            current_month = pd.Timestamp.now().to_period("M").astype(str)
+            final_df = final_df[final_df["Month"] == current_month]
+
+            # Optional sorting
+            final_df = final_df.sort_values(["Month", "Landscape", "Form"])
             push_to_google_sheet(final_df)
 
             st.success("✅ All forms synced successfully!")
