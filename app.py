@@ -111,7 +111,7 @@ if page == "MIS-Status":
 
         if all_data:
             final_df = pd.concat(all_data, ignore_index=True)
-            current_month = pd.Timestamp.now().to_period("M").astype(str)
+            current_month = str(pd.Timestamp.now().to_period("M"))
             final_df = final_df[final_df["Month"] == current_month]
 
             # Optional sorting
