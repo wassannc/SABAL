@@ -88,25 +88,25 @@ if page == "MIS-Status":
                     break
 
             # Create temp dataframe
-      temp_df = pd.DataFrame({
-        "Landscape": landscape,
-        "Date": date_series,
-        "Form": form_name
-    })
+            temp_df = pd.DataFrame({
+                "Landscape": landscape,
+                "Date": date_series,
+                "Form": form_name
+            })
 
-    # Convert Date properly
-    temp_df["Date"] = pd.to_datetime(temp_df["Date"], errors="coerce")
+            # Convert Date properly
+            temp_df["Date"] = pd.to_datetime(temp_df["Date"], errors="coerce")
 
-    # Extract Month-Year
-    temp_df["Month"] = temp_df["Date"].dt.to_period("M").astype(str)
+            # Extract Month-Year
+            temp_df["Month"] = temp_df["Date"].dt.to_period("M").astype(str)
 
-    # Group → monthly counts
-    temp_df = (
-        temp_df
-        .groupby(["Landscape", "Month", "Form"])
-        .size()
-        .reset_index(name="Count")
-    )
+            # Group → monthly counts
+            temp_df = (
+                temp_df
+                .groupby(["Landscape", "Month", "Form"])
+                .size()
+                .reset_index(name="Count")
+            )
             all_data.append(temp_df)
 
         if all_data:
