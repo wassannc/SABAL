@@ -2,6 +2,7 @@ import gspread
 from google.oauth2.service_account import Credentials
 import streamlit as st
 import pandas as pd
+from datetime import date
 from config import FORMS
 from utils import load_odk_data
 def push_to_google_sheet(df):
@@ -60,67 +61,73 @@ if page == "MIS-Status":
     import calendar
 
     st.title(" MIS Status")
-    if st.button("📤 Sync ALL Forms to Google Sheet"):
+    today = str(date.today())
 
-        all_data = []
+    # Check last sync date
+    if "last_sync" not in st.session_state:
+        st.session_state["last_sync"] = ""
 
-        for form_name, config in FORMS.items():
-            df = load_odk_data(config["form_id"])
+    if st.session_state["last_sync"] != today:
 
-            if df.empty:
-                continue
+        with st.spinner("🔄 Auto syncing data..."):
 
-            landscape_col = config.get("landscape_col")
+            all_data = []
 
-            # Landscape
-            if landscape_col in df.columns:
-                landscape = df[landscape_col]
+            for form_name, config in FORMS.items():
+                df = load_odk_data(config["form_id"])
+
+                if df.empty:
+                    continue
+
+                landscape_col = config.get("landscape_col")
+
+                if landscape_col in df.columns:
+                    landscape = df[landscape_col]
+                else:
+                    landscape = "Unknown"
+
+                date_series = None
+                for col in ["__system.submissionDate", "meta.submissionDate"]:
+                    if col in df.columns:
+                        date_series = pd.to_datetime(df[col], errors="coerce")
+                        break
+
+                if date_series is None:
+                    continue
+
+                temp_df = pd.DataFrame({
+                    "Landscape": landscape,
+                    "Date": date_series,
+                    "Form": form_name
+                })
+
+                temp_df["Month"] = temp_df["Date"].dt.to_period("M").astype(str)
+
+                temp_df = (
+                    temp_df
+                    .groupby(["Landscape", "Month", "Form"])
+                    .size()
+                    .reset_index(name="Count")
+                )
+
+                all_data.append(temp_df)
+
+            if all_data:
+                final_df = pd.concat(all_data, ignore_index=True)
+
+                current_month = str(pd.Timestamp.now().to_period("M"))
+                final_df = final_df[final_df["Month"] == current_month]
+
+                final_df = final_df.sort_values(["Month", "Landscape", "Form"])
+
+                push_to_google_sheet(final_df)
+
+                st.session_state["last_sync"] = today
+
+                st.success("✅ Auto sync completed!")
+
             else:
-                landscape = "Unknown"
-
-            # Date
-            date_cols = ["__system.submissionDate", "meta.submissionDate"]
-            date_series = None
-
-            for col in date_cols:
-                if col in df.columns:
-                    date_series = pd.to_datetime(df[col], errors="coerce")
-                    break
-
-            # Create temp dataframe
-            temp_df = pd.DataFrame({
-                "Landscape": landscape,
-                "Date": date_series,
-                "Form": form_name
-            })
-
-            # Convert Date properly
-            temp_df["Date"] = pd.to_datetime(temp_df["Date"], errors="coerce")
-
-            # Extract Month-Year
-            temp_df["Month"] = temp_df["Date"].dt.to_period("M").astype(str)
-
-            # Group → monthly counts
-            temp_df = (
-                temp_df
-                .groupby(["Landscape", "Month", "Form"])
-                .size()
-                .reset_index(name="Count")
-            )
-            all_data.append(temp_df)
-
-        if all_data:
-            final_df = pd.concat(all_data, ignore_index=True)
-            current_month = str(pd.Timestamp.now().to_period("M"))
-            final_df = final_df[final_df["Month"] == current_month]
-
-            # Optional sorting
-            final_df = final_df.sort_values(["Month", "Landscape", "Form"])
-            push_to_google_sheet(final_df)
-
-            st.success("✅ All forms synced successfully!")
-        else:
-            st.warning("No data available to sync")
+                st.warning("No data available to sync")
 
     # ---------------- FILTERS ----------------
     col1, col2 = st.columns(2)
