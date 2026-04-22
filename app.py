@@ -231,7 +231,7 @@ elif page == "Dashboards":
 
     # Links mapping
     dashboard_links = {
-        "NF-Trails": "<iframe title="Crop_models" width="600" height="373.5" src="https://app.powerbi.com/view?r=eyJrIjoiMjk4OTUxMGUtYjBjMS00YWEyLWEwZmUtMTVkNGI0M2EwZWQxIiwidCI6IjQ5NTM2MmE3LTQxMjItNDQ0OC1iNGU2LTIxYzQzZTRiZjRmZCJ9" frameborder="0" allowFullScreen="true"></iframe>",
+        "NF-Trails": "https://app.powerbi.com/view?r=eyJrIjoiMjk4OTUxMGUtYjBjMS00YWEyLWEwZmUtMTVkNGI0M2EwZWQxIiwidCI6IjQ5NTM2MmE3LTQxMjItNDQ0OC1iNGU2LTIxYzQzZTRiZjRmZCJ9",
         "Landscape Dashboard": "PASTE_LINK_2",
         "Activities Dashboard": "PASTE_LINK_3",
         "BRC Dashboard": "PASTE_LINK_4",
