@@ -212,24 +212,34 @@ if page == "MIS-Status":
 
                 else:
                     st.warning(f"{landscape_col} not found")
+                    
 elif page == "Dashboards":
 
     st.title("📊 SABAL Dashboards")
 
-    st.subheader("1. Overall Dashboard")
-    st.link_button("Open Dashboard", "PASTE_LINK_1")
+# Dropdown
+dashboard_option = st.selectbox(
+    "Select Dashboard",
+    [
+        "Overall Dashboard",
+        "Landscape Dashboard",
+        "Activities Dashboard",
+        "BRC Dashboard",
+        "Micro Enterprises Dashboard"
+    ]
+)
 
-    st.subheader("2. Landscape Dashboard")
-    st.link_button("Open Dashboard", "PASTE_LINK_2")
+# Links mapping
+dashboard_links = {
+    "Overall Dashboard": "PASTE_LINK_1",
+    "Landscape Dashboard": "PASTE_LINK_2",
+    "Activities Dashboard": "PASTE_LINK_3",
+    "BRC Dashboard": "PASTE_LINK_4",
+    "Micro Enterprises Dashboard": "PASTE_LINK_5"
+}
 
-    st.subheader("3. Activities Dashboard")
-    st.link_button("Open Dashboard", "PASTE_LINK_3")
-
-    st.subheader("4. BRC Dashboard")
-    st.link_button("Open Dashboard", "PASTE_LINK_4")
-
-    st.subheader("5. Micro Enterprises Dashboard")
-    st.link_button("Open Dashboard", "PASTE_LINK_5")
+# Show button for selected dashboard
+st.link_button("Open Selected Dashboard", dashboard_links[dashboard_option])
 
 elif page in FORMS:
     st.title(f"📥 {page} Report")
