@@ -36,10 +36,7 @@ def push_to_google_sheet(df):
         sheet.update(
             f"A{i+1}",
             data[i:i+chunk_size]
-        )
-    
-st.set_page_config(page_title="MIS Tracking-SABAL", layout="wide")
-st.title("📊 MIS Tracking - SABAL")
+        ) 
 
 st.sidebar.title("Menu")
 
