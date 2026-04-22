@@ -217,29 +217,29 @@ elif page == "Dashboards":
 
     st.title("📊 SABAL Dashboards")
 
-# Dropdown
-dashboard_option = st.selectbox(
-    "Select Dashboard",
-    [
-        "Overall Dashboard",
-        "Landscape Dashboard",
-        "Activities Dashboard",
-        "BRC Dashboard",
-        "Micro Enterprises Dashboard"
-    ]
-)
+    # Dropdown
+    dashboard_option = st.selectbox(
+        "Select Dashboard",
+        [
+            "Overall Dashboard",
+            "Landscape Dashboard",
+            "Activities Dashboard",
+            "BRC Dashboard",
+            "Micro Enterprises Dashboard"
+        ]
+    )
 
-# Links mapping
-dashboard_links = {
-    "Overall Dashboard": "PASTE_LINK_1",
-    "Landscape Dashboard": "PASTE_LINK_2",
-    "Activities Dashboard": "PASTE_LINK_3",
-    "BRC Dashboard": "PASTE_LINK_4",
-    "Micro Enterprises Dashboard": "PASTE_LINK_5"
-}
+    # Links mapping
+    dashboard_links = {
+        "Overall Dashboard": "PASTE_LINK_1",
+        "Landscape Dashboard": "PASTE_LINK_2",
+        "Activities Dashboard": "PASTE_LINK_3",
+        "BRC Dashboard": "PASTE_LINK_4",
+        "Micro Enterprises Dashboard": "PASTE_LINK_5"
+    }
 
-# Show button for selected dashboard
-st.link_button("Open Selected Dashboard", dashboard_links[dashboard_option])
+    # Show button for selected dashboard
+    st.link_button("Open Selected Dashboard", dashboard_links[dashboard_option])
 
 elif page in FORMS:
     st.title(f"📥 {page} Report")
