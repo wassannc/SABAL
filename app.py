@@ -238,8 +238,11 @@ elif page == "Dashboards":
         "Micro Enterprises Dashboard": "PASTE_LINK_5"
     }
 
-    # Show button for selected dashboard
-    st.link_button("Open Selected Dashboard", dashboard_links[dashboard_option])
+    st.components.v1.iframe(
+    dashboard_links[dashboard_option],
+    height=700,
+    scrolling=True
+)
 
 elif page in FORMS:
     st.title(f"📥 {page} Report")
