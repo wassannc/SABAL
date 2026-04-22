@@ -238,7 +238,7 @@ elif page in FORMS:
             file_name=f"{page}_report.csv",
             mime="text/csv"
         )
-else page == "Dashboards":
+elif page == "Dashboards":
 
     st.title("📊 SABAL Dashboards")
 
