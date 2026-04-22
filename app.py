@@ -54,7 +54,7 @@ if main_section == "MIS-Reports":
         list(FORMS.keys())
     )
 else:
-    page = "MIS-Status"
+    page = main_section  
 
 if page == "MIS-Status":
     import pandas as pd
