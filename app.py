@@ -222,20 +222,20 @@ elif page == "Dashboards":
         "Select Dashboard",
         [
             "NF-Trails",
-            "Landscape Dashboard",
-            "Activities Dashboard",
-            "BRC Dashboard",
-            "Micro Enterprises Dashboard"
+            "Bio Resource Centers",
+            "Capacity Building",
+            "Coffee Plots",
+            "Gender"
         ]
     )
 
     # Links mapping
     dashboard_links = {
         "NF-Trails": "https://app.powerbi.com/view?r=eyJrIjoiMjk4OTUxMGUtYjBjMS00YWEyLWEwZmUtMTVkNGI0M2EwZWQxIiwidCI6IjQ5NTM2MmE3LTQxMjItNDQ0OC1iNGU2LTIxYzQzZTRiZjRmZCJ9",
-        "Landscape Dashboard": "PASTE_LINK_2",
-        "Activities Dashboard": "PASTE_LINK_3",
-        "BRC Dashboard": "PASTE_LINK_4",
-        "Micro Enterprises Dashboard": "PASTE_LINK_5"
+        "Bio Resource Centers": "https://app.powerbi.com/view?r=eyJrIjoiN2YzM2ZhM2QtZTUzOC00ZTRkLTllN2EtNDFmNDg5MDhiNTIwIiwidCI6IjQ5NTM2MmE3LTQxMjItNDQ0OC1iNGU2LTIxYzQzZTRiZjRmZCJ9",
+        "Capacity Building": "https://app.powerbi.com/view?r=eyJrIjoiMTBjNjY4MWMtMTZhMi00ZDViLWE4OTQtYjNmM2I2MzVkMGVlIiwidCI6IjQ5NTM2MmE3LTQxMjItNDQ0OC1iNGU2LTIxYzQzZTRiZjRmZCJ9",
+        "Coffee Plots": "https://app.powerbi.com/view?r=eyJrIjoiOTNjZDI5NzktYWJiMS00ZmUxLWE4ZWEtZDE0MjQzYWY3MzQzIiwidCI6IjQ5NTM2MmE3LTQxMjItNDQ0OC1iNGU2LTIxYzQzZTRiZjRmZCJ9&pageName=e08ee9a2644d492a41a5",
+        "Gender": "https://app.powerbi.com/view?r=eyJrIjoiNzZiNWQ0NDYtZmVkNi00NWVlLThhZTctYTEzYjg3NmUyNGE5IiwidCI6IjQ5NTM2MmE3LTQxMjItNDQ0OC1iNGU2LTIxYzQzZTRiZjRmZCJ9"
     }
 
     st.components.v1.iframe(
