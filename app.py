@@ -212,6 +212,24 @@ if page == "MIS-Status":
 
                 else:
                     st.warning(f"{landscape_col} not found")
+elif page == "Dashboards":
+
+    st.title("📊 SABAL Dashboards")
+
+    st.subheader("1. Overall Dashboard")
+    st.link_button("Open Dashboard", "PASTE_LINK_1")
+
+    st.subheader("2. Landscape Dashboard")
+    st.link_button("Open Dashboard", "PASTE_LINK_2")
+
+    st.subheader("3. Activities Dashboard")
+    st.link_button("Open Dashboard", "PASTE_LINK_3")
+
+    st.subheader("4. BRC Dashboard")
+    st.link_button("Open Dashboard", "PASTE_LINK_4")
+
+    st.subheader("5. Micro Enterprises Dashboard")
+    st.link_button("Open Dashboard", "PASTE_LINK_5")
 
 elif page in FORMS:
     st.title(f"📥 {page} Report")
@@ -238,21 +256,3 @@ elif page in FORMS:
             file_name=f"{page}_report.csv",
             mime="text/csv"
         )
-elif page == "Dashboards":
-
-    st.title("📊 SABAL Dashboards")
-
-    st.subheader("1. Overall Dashboard")
-    st.link_button("Open Dashboard", "PASTE_LINK_1")
-
-    st.subheader("2. Landscape Dashboard")
-    st.link_button("Open Dashboard", "PASTE_LINK_2")
-
-    st.subheader("3. Activities Dashboard")
-    st.link_button("Open Dashboard", "PASTE_LINK_3")
-
-    st.subheader("4. BRC Dashboard")
-    st.link_button("Open Dashboard", "PASTE_LINK_4")
-
-    st.subheader("5. Micro Enterprises Dashboard")
-    st.link_button("Open Dashboard", "PASTE_LINK_5")
