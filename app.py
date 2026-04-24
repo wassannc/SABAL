@@ -13,8 +13,9 @@ def clean_landscape(series):
         .str.replace("  ", " ", regex=False)
         .str.title()
         .replace({
-            "kg pudi": "KG Pudi",
-            "kg pudu": "KG Pudi"
+            "Kg pudi": "KG Pudi",
+            "Kg pudu": "KG Pudi",
+            "Kgpudi": "KG Pudi"
         })
     )
 def push_to_google_sheet(df):
