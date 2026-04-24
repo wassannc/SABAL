@@ -60,7 +60,33 @@ if main_section == "MIS-Reports":
     )
 else:
     page = main_section  
+    
+ # ---------------- FILTERS ----------------
+    col1, col2 = st.columns(2)
 
+    with col1:
+        all_landscapes = set()
+
+        for form_name, config in FORMS.items():
+            df_temp = load_odk_data(config["form_id"])
+            col = config.get("landscape_col")
+            if col and col in df_temp.columns:
+                df_temp[col] = clean_landscape(df_temp[col])
+            
+            if col and col in df_temp.columns:
+                all_landscapes.update(df_temp[col].dropna().unique())
+
+        all_landscapes = sorted(all_landscapes)
+
+        selected_landscape = st.selectbox(
+            "Select Landscape",
+            ["All"] + list(all_landscapes)
+        )
+
+    with col2:
+        months = ["All"] + [calendar.month_name[i] for i in range(1, 13)]
+        selected_month = st.selectbox("Select Month", months)
+        
 if page == "MIS-Status":
     import pandas as pd
     import calendar
@@ -133,32 +159,6 @@ if page == "MIS-Status":
 
             else:
                 st.warning("No data available to sync")
-
-    # ---------------- FILTERS ----------------
-    col1, col2 = st.columns(2)
-
-    with col1:
-        all_landscapes = set()
-
-        for form_name, config in FORMS.items():
-            df_temp = load_odk_data(config["form_id"])
-            col = config.get("landscape_col")
-            if col and col in df_temp.columns:
-                df_temp[col] = clean_landscape(df_temp[col])
-            
-            if col and col in df_temp.columns:
-                all_landscapes.update(df_temp[col].dropna().unique())
-
-        all_landscapes = sorted(all_landscapes)
-
-        selected_landscape = st.selectbox(
-            "Select Landscape",
-            ["All"] + list(all_landscapes)
-        )
-
-    with col2:
-        months = ["All"] + [calendar.month_name[i] for i in range(1, 13)]
-        selected_month = st.selectbox("Select Month", months)
 
     # ---------------- DATA DISPLAY ----------------
     forms_list = list(FORMS.items())
@@ -258,29 +258,6 @@ elif page in FORMS:
 
     config = FORMS[page]
     df = load_odk_data(config["form_id"])
-    
-    # 🔽 APPLY FILTERS (ONLY FOR MIS-REPORTS)
-    landscape_col = config.get("landscape_col")
-    # Landscape filter
-    if selected_landscape != "All" and landscape_col in df.columns:
-        df = df[df[landscape_col] == selected_landscape]
-
-    # Month filter
-    date_cols = ["__system.submissionDate", "meta.submissionDate"]
-    date_col = None
-
-    for col in date_cols:
-        if col in df.columns:
-            date_col = col
-            break
-
-    if selected_month != "All" and date_col:
-        df[date_col] = pd.to_datetime(df[date_col], errors="coerce")
-
-        import calendar
-        month_num = list(calendar.month_name).index(selected_month)
-
-        df = df[df[date_col].dt.month == month_num]
             
     if df.empty:
         st.warning("No data found")
