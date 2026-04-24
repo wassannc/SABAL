@@ -16,8 +16,8 @@ def clean_landscape(series):
 
     # ✅ correct mapping (lowercase keys)
     cleaned = cleaned.replace({
-        "kgpudi": "KG Pudi",
-        "kgpudu": "KG Pudi"
+        "Kg pudi": "KG Pudi",
+        "Kg pudu": "KG Pudi"
     })
 
     return cleaned
