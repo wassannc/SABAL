@@ -258,10 +258,33 @@ elif page in FORMS:
 
     config = FORMS[page]
     df = load_odk_data(config["form_id"])
+    # 🔽 APPLY FILTERS (ONLY FOR MIS-REPORTS)
 
+    landscape_col = config.get("landscape_col")
+
+    # Landscape filter
+    if selected_landscape != "All" and landscape_col in df.columns:
+        df = df[df[landscape_col] == selected_landscape]
+
+    # Month filter
+    date_cols = ["__system.submissionDate", "meta.submissionDate"]
+    date_col = None
+
+    for col in date_cols:
+        if col in df.columns:
+            date_col = col
+            break
+
+    if selected_month != "All" and date_col:
+        df[date_col] = pd.to_datetime(df[date_col], errors="coerce")
+
+        import calendar
+        month_num = list(calendar.month_name).index(selected_month)
+
+        df = df[df[date_col].dt.month == month_num]
     if df.empty:
         st.warning("No data found")
-
+    
     else:
         # Select only required columns
         columns = config.get("columns", [])
