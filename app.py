@@ -253,6 +253,9 @@ elif page == "Dashboards":
     height=700,
     scrolling=True
 )
+    
+elif page == "Harvests":
+    st.title("🌾 Harvests Details")
 
 elif page in FORMS:
     st.title(f"📥 {page} Report")
@@ -269,12 +272,8 @@ elif page in FORMS:
         available_cols = [col for col in columns if col in df.columns]
 
         df_filtered = df[available_cols]
-
         st.dataframe(df_filtered, use_container_width=True)
         
-    elif page == "Harvests":
-        st.title("🌾 Harvests Details")
-    
         # Download button
         st.download_button(
             label="⬇ Download CSV",
