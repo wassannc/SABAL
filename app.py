@@ -6,17 +6,21 @@ from datetime import date
 from config import FORMS
 from utils import load_odk_data
 def clean_landscape(series):
-    return (
+    cleaned = (
         series.astype(str)
         .str.strip()
         .str.lower()
         .str.replace(".", "", regex=False)
-        .str.replace(" ", "", regex=False)   # remove spaces
-        .replace({
-            "Kgpudi": "KG Pudi",
-            "Kg Pudu": "KG Pudi"
-        })
+        .str.replace(" ", "", regex=False)
     )
+
+    # ✅ correct mapping (lowercase keys)
+    cleaned = cleaned.replace({
+        "kgpudi": "KG Pudi",
+        "kgpudu": "KG Pudi"
+    })
+
+    return cleaned
 def push_to_google_sheet(df):
 
     scope = [
