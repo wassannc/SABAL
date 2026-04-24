@@ -5,6 +5,17 @@ import pandas as pd
 from datetime import date
 from config import FORMS
 from utils import load_odk_data
+def clean_landscape(series):
+    return (
+        series.astype(str)
+        .str.strip()
+        .str.replace(".", "", regex=False)
+        .str.replace("  ", " ", regex=False)
+        .str.title()
+        .replace({
+            "KG Pudu": "KG Pudi"
+        })
+    )
 def push_to_google_sheet(df):
 
     scope = [
@@ -79,7 +90,7 @@ if page == "MIS-Status":
                 landscape_col = config.get("landscape_col")
 
                 if landscape_col in df.columns:
-                    landscape = df[landscape_col]
+                    landscape = clean_landscape(df[landscape_col])
                 else:
                     landscape = "Unknown"
 
@@ -135,7 +146,9 @@ if page == "MIS-Status":
         for form_name, config in FORMS.items():
             df_temp = load_odk_data(config["form_id"])
             col = config.get("landscape_col")
-
+            if col and col in df_temp.columns:
+                df_temp[col] = clean_landscape(df_temp[col])
+            
             if col and col in df_temp.columns:
                 all_landscapes.update(df_temp[col].dropna().unique())
 
@@ -164,7 +177,9 @@ if page == "MIS-Status":
             form_name, config = forms_list[i + j]
             df = load_odk_data(config["form_id"])
             landscape_col = config.get("landscape_col")
-
+            if landscape_col in df.columns:
+                df[landscape_col] = clean_landscape(df[landscape_col])
+            
             # -------- APPLY FILTERS --------
 
             # Landscape filter
