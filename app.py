@@ -9,13 +9,12 @@ def clean_landscape(series):
     return (
         series.astype(str)
         .str.strip()
+        .str.lower()
         .str.replace(".", "", regex=False)
-        .str.replace("  ", " ", regex=False)
-        .str.title()
+        .str.replace(" ", "", regex=False)   # remove spaces
         .replace({
-            "Kg pudi": "KG Pudi",
-            "Kg pudu": "KG Pudi",
-            "Kgpudi": "KG Pudi"
+            "Kgpudi": "KG Pudi",
+            "Kg Pudu": "KG Pudi"
         })
     )
 def push_to_google_sheet(df):
