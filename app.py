@@ -271,6 +271,9 @@ elif page in FORMS:
         df_filtered = df[available_cols]
 
         st.dataframe(df_filtered, use_container_width=True)
+        
+    elif page == "Harvests":
+        st.title("🌾 Harvests Details")
 
         # Download button
         st.download_button(
