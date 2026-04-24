@@ -262,6 +262,9 @@ elif page in FORMS:
             
     if df.empty:
         st.warning("No data found")
+        
+elif page == "Harvests":
+    st.title("🌾 Harvests Details")
     
     else:
         # Select only required columns
@@ -271,9 +274,6 @@ elif page in FORMS:
         df_filtered = df[available_cols]
 
         st.dataframe(df_filtered, use_container_width=True)
-        
-    elif page == "Harvests":
-        st.title("🌾 Harvests Details")
 
         # Download button
         st.download_button(
