@@ -272,8 +272,8 @@ elif page in FORMS:
 
         st.dataframe(df_filtered, use_container_width=True)
         
-elif page == "Harvests":
-    st.title("🌾 Harvests Details")
+    elif page == "Harvests":
+        st.title("🌾 Harvests Details")
     
         # Download button
         st.download_button(
