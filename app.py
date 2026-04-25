@@ -256,7 +256,9 @@ elif page == "Dashboards":
     
 elif page == "Harvests":
     st.title("🌾 Harvests Details")
-
+    df_harvest = load_odk_data("6.Orchards-Intensification")
+    df_coffee_entity = load_entities("coffee_plots")  
+    
 elif page in FORMS:
     st.title(f"📥 {page} Report")
 
