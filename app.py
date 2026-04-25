@@ -50,7 +50,7 @@ st.sidebar.title("Menu")
 
 main_section = st.sidebar.radio(
     "Select Section",
-    ["MIS-Status", "MIS-Reports", "Dashboards", "Harvests"]
+    ["MIS-Status", "MIS-Reports", "Dashboards"]
 )
 
 if main_section == "MIS-Reports":
