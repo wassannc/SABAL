@@ -10,8 +10,9 @@ PROJECT_ID = st.secrets["PROJECT_ID"]
 
 @st.cache_data(ttl=300)
 def load_odk_data(form_id):
-    url = f"{ODK_URL}/v1/projects/{PROJECT_ID}/forms/{form_id}/submissions.csv"
-    
+
+    url = f"{ODK_URL}/v1/projects/{PROJECT_ID}/forms/{form_id}.svc/Submissions?$format=csv"
+
     response = requests.get(url, auth=(USERNAME, PASSWORD))
 
     if response.status_code != 200:
@@ -19,4 +20,5 @@ def load_odk_data(form_id):
         return pd.DataFrame()
 
     df = pd.read_csv(io.StringIO(response.text))
+
     return df
