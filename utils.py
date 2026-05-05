@@ -10,7 +10,7 @@ PROJECT_ID = st.secrets["PROJECT_ID"]
 
 @st.cache_data(ttl=300)
 def load_odk_data(form_id):
-    url = f"{ODK_URL}/v1/projects/{PROJECT_ID}/forms/{form_id}.csv"
+    url = f"{ODK_URL}/v1/projects/{PROJECT_ID}/forms/{form_id}/submissions.csv"
     
     response = requests.get(url, auth=(USERNAME, PASSWORD))
 
