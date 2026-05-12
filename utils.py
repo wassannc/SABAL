@@ -4,14 +4,14 @@ import pandas as pd
 
 ODK_URL = st.secrets["ODK_URL"]
 USERNAME = st.secrets["USERNAME"]
-PASSWORD = st.secrets["PASSWORD"]
+TOKEN = st.secrets["TOKEN"]
 PROJECT_ID = st.secrets["PROJECT_ID"]
 
 @st.cache_data(ttl=300)
 def load_odk_data(form_id):
     url = f"{ODK_URL}/v1/projects/{PROJECT_ID}/forms/{form_id}.svc/Submissions"
     
-    response = requests.get(url, auth=(USERNAME, PASSWORD))
+    TOKEN = st.secrets["TOKEN"]
 
     if response.status_code != 200:
         st.error(f"Error: {response.status_code}")
