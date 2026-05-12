@@ -24,21 +24,3 @@ def load_odk_data(form_id):
 
     df = pd.json_normalize(data["value"])
     return df
-
-@st.cache_data(ttl=600)
-def load_polygon_data(form_id):
-
-    url = f"{ODK_URL}/v1/projects/{PROJECT_ID}/forms/{form_id}.svc/Submissions?$select=plot_reg/plot_polygon"
-
-    response = requests.get(url, auth=(USERNAME, PASSWORD))
-
-    if response.status_code != 200:
-        return pd.DataFrame()
-
-    data = response.json()
-
-    if "value" not in data:
-        return pd.DataFrame()
-
-    df = pd.json_normalize(data["value"])
-    return df
