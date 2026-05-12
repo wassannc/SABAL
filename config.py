@@ -1,5 +1,5 @@
 FORMS = {
-    "FarmerRegister_NF": {
+    "1. FarmerRegister-NF": {
         "form_id": "FarmerRegister_NF",
         "columns": ["plot_reg.date","plot_reg.landscape","plot_reg.gp","plot_reg.village","plot_reg.farmer_name","plot_reg.spouse","plot_reg.season","plot_reg.crop_model","plot_reg.main_crop","plot_reg.sowing_date"],
         "landscape_col": "plot_reg.landscape"
