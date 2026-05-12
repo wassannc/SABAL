@@ -4,15 +4,7 @@ import streamlit as st
 import pandas as pd
 from datetime import date
 from config import FORMS
-from utils import load_odk_data, load_polygon_data
-def clean_landscape(series):
-    return series.replace({
-        "KG.Pudi": "KG Pudi",
-        "KG Pudu": "KG Pudi",
-        "Kg Pudi": "KG Pudi",
-        "Kg Pudu": "KG Pudi",
-        "Kgpudi": "KG Pudi"
-    })
+from utils import load_odk_data
 def push_to_google_sheet(df):
 
     scope = [
@@ -44,13 +36,16 @@ def push_to_google_sheet(df):
         sheet.update(
             f"A{i+1}",
             data[i:i+chunk_size]
-        ) 
+        )
+    
+st.set_page_config(page_title="MIS Tracking-SABAL", layout="wide")
+st.title("📊 MIS Tracking - SABAL")
 
 st.sidebar.title("Menu")
 
 main_section = st.sidebar.radio(
     "Select Section",
-    ["MIS-Status", "MIS-Reports", "Dashboards"]
+    ["MIS-Status", "MIS-Reports"]
 )
 
 if main_section == "MIS-Reports":
@@ -59,35 +54,8 @@ if main_section == "MIS-Reports":
         list(FORMS.keys())
     )
 else:
-    page = main_section  
-    
- # ---------------- FILTERS ----------------
-    import calendar
-    col1, col2 = st.columns(2)
+    page = "MIS-Status"
 
-    with col1:
-        all_landscapes = set()
-
-        for form_name, config in FORMS.items():
-            df_temp = load_odk_data(config["form_id"])
-            col = config.get("landscape_col")
-            if col and col in df_temp.columns:
-                df_temp[col] = clean_landscape(df_temp[col])
-            
-            if col and col in df_temp.columns:
-                all_landscapes.update(df_temp[col].dropna().unique())
-
-        all_landscapes = sorted(all_landscapes)
-
-        selected_landscape = st.selectbox(
-            "Select Landscape",
-            ["All"] + list(all_landscapes)
-        )
-
-    with col2:
-        months = ["All"] + [calendar.month_name[i] for i in range(1, 13)]
-        selected_month = st.selectbox("Select Month", months)
-        
 if page == "MIS-Status":
     import pandas as pd
     import calendar
@@ -114,7 +82,7 @@ if page == "MIS-Status":
                 landscape_col = config.get("landscape_col")
 
                 if landscape_col in df.columns:
-                    landscape = clean_landscape(df[landscape_col])
+                    landscape = df[landscape_col]
                 else:
                     landscape = "Unknown"
 
@@ -161,6 +129,30 @@ if page == "MIS-Status":
             else:
                 st.warning("No data available to sync")
 
+    # ---------------- FILTERS ----------------
+    col1, col2 = st.columns(2)
+
+    with col1:
+        all_landscapes = set()
+
+        for form_name, config in FORMS.items():
+            df_temp = load_odk_data(config["form_id"])
+            col = config.get("landscape_col")
+
+            if col and col in df_temp.columns:
+                all_landscapes.update(df_temp[col].dropna().unique())
+
+        all_landscapes = sorted(all_landscapes)
+
+        selected_landscape = st.selectbox(
+            "Select Landscape",
+            ["All"] + list(all_landscapes)
+        )
+
+    with col2:
+        months = ["All"] + [calendar.month_name[i] for i in range(1, 13)]
+        selected_month = st.selectbox("Select Month", months)
+
     # ---------------- DATA DISPLAY ----------------
     forms_list = list(FORMS.items())
     cols_per_row = 2
@@ -175,9 +167,7 @@ if page == "MIS-Status":
             form_name, config = forms_list[i + j]
             df = load_odk_data(config["form_id"])
             landscape_col = config.get("landscape_col")
-            if landscape_col in df.columns:
-                df[landscape_col] = clean_landscape(df[landscape_col])
-            
+
             # -------- APPLY FILTERS --------
 
             # Landscape filter
@@ -222,60 +212,25 @@ if page == "MIS-Status":
 
                 else:
                     st.warning(f"{landscape_col} not found")
-                    
-elif page == "Dashboards":
 
-    st.title("📊 SABAL Dashboards")
-
-    # Dropdown
-    dashboard_option = st.selectbox(
-        "Select Dashboard",
-        [
-            "NF-Trails",
-            "Bio Resource Centers",
-            "Capacity Building",
-            "Coffee Plots",
-            "Gender"
-        ]
-    )
-
-    # Links mapping
-    dashboard_links = {
-        "NF-Trails": "https://app.powerbi.com/view?r=eyJrIjoiMjk4OTUxMGUtYjBjMS00YWEyLWEwZmUtMTVkNGI0M2EwZWQxIiwidCI6IjQ5NTM2MmE3LTQxMjItNDQ0OC1iNGU2LTIxYzQzZTRiZjRmZCJ9",
-        "Bio Resource Centers": "https://app.powerbi.com/view?r=eyJrIjoiN2YzM2ZhM2QtZTUzOC00ZTRkLTllN2EtNDFmNDg5MDhiNTIwIiwidCI6IjQ5NTM2MmE3LTQxMjItNDQ0OC1iNGU2LTIxYzQzZTRiZjRmZCJ9",
-        "Capacity Building": "https://app.powerbi.com/view?r=eyJrIjoiMTBjNjY4MWMtMTZhMi00ZDViLWE4OTQtYjNmM2I2MzVkMGVlIiwidCI6IjQ5NTM2MmE3LTQxMjItNDQ0OC1iNGU2LTIxYzQzZTRiZjRmZCJ9",
-        "Coffee Plots": "https://app.powerbi.com/view?r=eyJrIjoiOTNjZDI5NzktYWJiMS00ZmUxLWE4ZWEtZDE0MjQzYWY3MzQzIiwidCI6IjQ5NTM2MmE3LTQxMjItNDQ0OC1iNGU2LTIxYzQzZTRiZjRmZCJ9&pageName=e08ee9a2644d492a41a5",
-        "Gender": "https://app.powerbi.com/view?r=eyJrIjoiNzZiNWQ0NDYtZmVkNi00NWVlLThhZTctYTEzYjg3NmUyNGE5IiwidCI6IjQ5NTM2MmE3LTQxMjItNDQ0OC1iNGU2LTIxYzQzZTRiZjRmZCJ9"
-    }
-
-    st.components.v1.iframe(
-    dashboard_links[dashboard_option],
-    height=700,
-    scrolling=True
-)
-    
-elif page == "Harvests":
-    st.title("🌾 Harvests Details")
-    df_harvest = load_odk_data("6.Orchards-Intensification")
-    df_coffee_entity = load_entities("coffee_plots")  
-    
 elif page in FORMS:
     st.title(f"📥 {page} Report")
 
     config = FORMS[page]
     df = load_odk_data(config["form_id"])
-            
+
     if df.empty:
         st.warning("No data found")
-    
+
     else:
         # Select only required columns
         columns = config.get("columns", [])
         available_cols = [col for col in columns if col in df.columns]
 
         df_filtered = df[available_cols]
+
         st.dataframe(df_filtered, use_container_width=True)
-        
+
         # Download button
         st.download_button(
             label="⬇ Download CSV",
