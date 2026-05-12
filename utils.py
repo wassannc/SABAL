@@ -12,15 +12,10 @@ def load_odk_data(form_id):
 
     url = f"{ODK_URL}/projects/{PROJECT_ID}/forms/{form_id}.svc/Submissions"
 
-    st.write("URL:", url)
-
     response = requests.get(
         url,
         auth=(USERNAME, PASSWORD)
     )
-
-    st.write("Status Code:", response.status_code)
-    st.write("Response:", response.text)
 
     if response.status_code != 200:
         st.error(f"Error: {response.status_code}")
@@ -29,7 +24,6 @@ def load_odk_data(form_id):
     data = response.json()
 
     if "value" not in data:
-        st.write(data)
         return pd.DataFrame()
 
     df = pd.json_normalize(data["value"])
