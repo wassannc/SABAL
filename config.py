@@ -1,6 +1,6 @@
 FORMS = {
     "A. Household_Register": {
-        "form_id": "Household_Register",
+        "form_id": "Household_Register [E-PRA]",
         "columns": ["Submitted at","primary_details.landscape","primary_details.gp","primary_details.village","primary_details.farmer_name","primary_details.spouse","primary_details.hh_no","primary_details.gender","primary_details.tribe_name","primary_details.mobile_number"],
         "landscape_col": "primary_details.landscape"
     }, 
