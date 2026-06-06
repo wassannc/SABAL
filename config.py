@@ -2,6 +2,7 @@ FORMS = {
     "A. Household_Register [E-PRA]": {
         "form_id": "Household_Register",
         "columns": ["Submitted at","primary_details.landscape","primary_details.gp","primary_details.village","primary_details.farmer_name","primary_details.spouse","primary_details.hh_no","primary_details.gender","primary_details.tribe_name","primary_details.mobile_number"],
+        "column_labels": {"Submitted at","primary_details.landscape": "Landscape","primary_details.gp": "GP","primary_details.village": "Village","primary_details.farmer_name": "Farmer name","primary_details.spouse": "Spouse","primary_details.hh_no": "Household number","primary_details.gender": "Gender","primary_details.tribe_name": "Tribe name","primary_details.mobile_number": "Mobile no"},
         "landscape_col": "primary_details.landscape"
     }, 
     "1. FarmerRegister-NF": {
