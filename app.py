@@ -225,6 +225,11 @@ if page == "MIS-Status":
                     
 elif page == "Landscape profiles":
     st.title("📊 Landscape Profiles")
+    worksheet = client.open("Reminder_SABAL").worksheet("progress")
+    data = worksheet.get_all_records()
+    df = pd.DataFrame(data)
+    st.dataframe(df.head())
+    st.write(df.columns.tolist())
     
 elif page == "Dashboards":
 
