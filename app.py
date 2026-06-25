@@ -50,7 +50,7 @@ st.sidebar.title("Menu")
 
 main_section = st.sidebar.radio(
     "Select Section",
-    ["MIS-Status", "MIS-Reports", "Dashboards"]
+    ["MIS-Status", "MIS-Reports", "Landscape profiles", "Dashboards"]
 )
 
 if main_section == "MIS-Reports":
@@ -223,6 +223,9 @@ if page == "MIS-Status":
                 else:
                     st.warning(f"{landscape_col} not found")
                     
+elif page == "Landscape profiles":
+    st.title("📊 Landscape Profiles")
+    
 elif page == "Dashboards":
 
     st.title("📊 SABAL Dashboards")
