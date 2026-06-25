@@ -225,6 +225,15 @@ if page == "MIS-Status":
                     
 elif page == "Landscape profiles":
     st.title("📊 Landscape Profiles")
+    scope = [
+        "https://www.googleapis.com/auth/spreadsheets",
+        "https://www.googleapis.com/auth/drive"
+    ]
+    creds = Credentials.from_service_account_info(
+        st.secrets["gcp_service_account"],
+        scopes=scope
+    )
+    client = gspread.authorize(creds)
     worksheet = client.open("Reminder_SABAL").worksheet("progress")
     data = worksheet.get_all_records()
     df = pd.DataFrame(data)
