@@ -249,6 +249,12 @@ elif page == "Landscape profiles":
         "Total HH",
         "No of SHG groups",
         "Total Landless HH"
+        "Total Geography in acre",
+        "Total Forest land in acres",
+        "Total Common land ( Panchayat/ revenue forest land) in acres",
+        "Total Orchard lands in acres",
+        "Total HH own Orchards",
+        "Total HH who has eco intensified their orchards"
     ]
     for col in numeric_cols:
         df[col] = pd.to_numeric(df[col], errors="coerce").fillna(0)
@@ -320,7 +326,21 @@ elif page == "Landscape profiles":
     )
 
     st.plotly_chart(fig, use_container_width=True)
-    
+    st.markdown("---")
+    st.subheader("🌳 Forest & Common Lands")
+
+    forest = (
+        df.groupby("Landscape")
+          .agg(
+              Geography=("Total Geography in acre","sum"),
+              Forest=("Total Forest land in acres","sum"),
+              Common=("Total Common land ( Panchayat/ revenue forest land) in acres","sum"),
+              Orchard=("Total Orchard lands in acres","sum"),
+              Orchard_HH=("Total HH own Orchards","sum"),
+              Intensified=("Total HH who has eco intensified their orchards","sum")
+          )
+          .reset_index()
+    )
     
 elif page == "Dashboards":
 
