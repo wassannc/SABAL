@@ -538,7 +538,68 @@ elif page == "Landscape profiles":
 
     st.markdown("---")
     st.subheader("🏭 Micro Enterprises")
-    st.write(df.columns.tolist())
+    micro_cols = [
+        "Total HH",
+        "Total Cattle owner who renovated their cattle sheds",
+        "Total Sheep and Goats owners who renovated their sheds",
+        "No of Desi Poultry Breeding Farms",
+        "No of seed Entrepreneurs",
+        "No of feed Entrepreneurs"
+    ]
+
+    for col in micro_cols:
+        df[col] = pd.to_numeric(df[col], errors="coerce").fillna(0)
+        
+    micro = (
+        df.groupby("Landscape")
+          .agg(
+              Total_HH=("Total HH", "sum"),
+              Cattle=("Total Cattle owner who renovated their cattle sheds", "sum"),
+              Sheep=("Total Sheep and Goats owners who renovated their sheds", "sum"),
+              Poultry=("No of Desi Poultry Breeding Farms", "sum"),
+              Seed=("No of seed Entrepreneurs", "sum"),
+              Feed=("No of feed Entrepreneurs", "sum")
+          )
+          .reset_index()
+    )
+
+    micro["Total Micro"] = (
+        micro["Cattle"] +
+        micro["Sheep"] +
+        micro["Poultry"] +
+        micro["Seed"] +
+        micro["Feed"]
+    )
+    micro["Micro %"] = (
+        micro["Total Micro"] /
+        micro["Total_HH"] * 100
+    )
+
+    micro = micro.fillna(0)
+    fig = px.bar(
+        micro,
+        x="Micro %",
+        y="Landscape",
+        orientation="h",
+        text="Micro %",
+        title="Micro Enterprises (%) by Landscape",
+        color="Micro %",
+        color_continuous_scale="Teal"
+    )
+
+    fig.update_traces(
+        texttemplate="%{text:.1f}%",
+        textposition="outside"
+    )
+
+    fig.update_layout(
+        height=450,
+        xaxis_title="Micro Enterprises (%)",
+        yaxis_title="",
+        coloraxis_showscale=False
+    )
+
+    st.plotly_chart(fig, use_container_width=True)
     
 elif page == "Dashboards":
 
