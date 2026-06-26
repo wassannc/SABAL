@@ -363,7 +363,30 @@ elif page == "Landscape profiles":
 
     forest = forest.fillna(0)
 
-    st.dataframe(forest)
+    fig = px.bar(
+        forest,
+        x="Forest %",
+        y="Landscape",
+        orientation="h",
+        text="Forest %",
+        title="Forest Land (%) by Landscape",
+        color="Forest %",
+        color_continuous_scale="Greens"
+    )
+
+    fig.update_traces(
+        texttemplate="%{text:.1f}%",
+        textposition="outside"
+    )
+
+    fig.update_layout(
+        height=450,
+        xaxis_title="Forest Land (%)",
+        yaxis_title="",
+        coloraxis_showscale=False
+    )
+
+    st.plotly_chart(fig, use_container_width=True)
     
 elif page == "Dashboards":
 
