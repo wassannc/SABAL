@@ -431,72 +431,72 @@ elif page == "Dashboards":
             )
         )
 
-    fig.update_layout(
-        height=450,
-        xaxis_title="Common Land (%)",
-        yaxis_title="",
-        coloraxis_showscale=False
-    )
-
-    st.plotly_chart(fig, use_container_width=True)
-    forest = forest.sort_values("Orchard %", ascending=False)
-    fig = px.bar(
-        forest,
-        x="Orchard %",
-        y="Landscape",
-        orientation="h",
-        text="Orchard %",
-        title="Orchard Land (%) by Landscape",
-        color="Orchard %",
-        color_continuous_scale="Oranges"
-    )
-
-    fig.update_traces(
-        texttemplate="<b>%{text:.1f}%</b>",
-        textposition="outside",
-        textfont=dict(
-            color="black",
-            size=14
+        fig.update_layout(
+            height=450,
+            xaxis_title="Common Land (%)",
+            yaxis_title="",
+            coloraxis_showscale=False
         )
-    )
 
-    fig.update_layout(
-        height=450,
-        xaxis_title="Orchard Land (%)",
-        yaxis_title="",
-        coloraxis_showscale=False
-    )
-
-    st.plotly_chart(fig, use_container_width=True)
-    forest = forest.sort_values("HH Intensified %", ascending=False)
-    fig = px.bar(
-        forest,
-        x="HH Intensified %",
-        y="Landscape",
-        orientation="h",
-        text="HH Intensified %",
-        title="HH Intensified Orchards (%)",
-        color="HH Intensified %",
-        color_continuous_scale="Purples"
-    )
-
-    fig.update_traces(
-        texttemplate="<b>%{text:.1f}%</b>",
-        textposition="outside",
-        textfont=dict(
-            color="black",
-            size=14
+        st.plotly_chart(fig, use_container_width=True)
+        forest = forest.sort_values("Orchard %", ascending=False)
+        fig = px.bar(
+            forest,
+            x="Orchard %",
+            y="Landscape",
+            orientation="h",
+            text="Orchard %",
+            title="Orchard Land (%) by Landscape",
+            color="Orchard %",
+            color_continuous_scale="Oranges"
         )
-    )
 
-    fig.update_layout(
-        height=450,
-        xaxis_title="HH Intensified (%)",
-        yaxis_title="",
-        coloraxis_showscale=False
-    )
+        fig.update_traces(
+            texttemplate="<b>%{text:.1f}%</b>",
+            textposition="outside",
+            textfont=dict(
+                color="black",
+                size=14
+            )
+        )
 
-    st.plotly_chart(fig, use_container_width=True)
+        fig.update_layout(
+            height=450,
+            xaxis_title="Orchard Land (%)",
+            yaxis_title="",
+            coloraxis_showscale=False
+        )
+
+        st.plotly_chart(fig, use_container_width=True)
+        forest = forest.sort_values("HH Intensified %", ascending=False)
+        fig = px.bar(
+            forest,
+            x="HH Intensified %",
+            y="Landscape",
+            orientation="h",
+            text="HH Intensified %",
+            title="HH Intensified Orchards (%)",
+            color="HH Intensified %",
+            color_continuous_scale="Purples"
+        )
+
+        fig.update_traces(
+            texttemplate="<b>%{text:.1f}%</b>",
+            textposition="outside",
+            textfont=dict(
+                color="black",
+                size=14
+            )
+        )
+
+        fig.update_layout(
+            height=450,
+            xaxis_title="HH Intensified (%)",
+            yaxis_title="",
+            coloraxis_showscale=False
+        )
+
+        st.plotly_chart(fig, use_container_width=True)
     
     st.markdown("---")
     st.subheader("🌾 Paddy & Mettu Lands")
