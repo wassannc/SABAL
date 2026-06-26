@@ -231,7 +231,7 @@ elif page == "Dashboards":
         "",
         [
             "📊 Landscape Profiles",
-            "📈 Power BI Dashboards"
+            "📈 Dashboards"
         ]
     )
        
@@ -652,7 +652,7 @@ elif page == "Dashboards":
 
         st.plotly_chart(fig, use_container_width=True)
 
-    elif dashboard == "📈 Power BI Dashboards":
+    elif dashboard == "📈 Dashboards":
         # Dropdown
         dashboard_option = st.selectbox(
             "Select Dashboard",
