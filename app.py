@@ -249,7 +249,7 @@ elif page == "Landscape profiles":
     for col in numeric_cols:
         df[col] = pd.to_numeric(df[col], errors="coerce").fillna(0)
     st.subheader("📈 Overview")
-        demo = (
+    demo = (
         df.groupby("Landscape")
         .agg(
             Total_Villages=("Village", "nunique"),
