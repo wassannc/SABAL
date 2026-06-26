@@ -234,63 +234,63 @@ elif page == "Dashboards":
         ]
     )
     if dashboard == "📊 Landscape Profiles":
-    st.title("📊 Landscape Profiles")
-    scope = [
-        "https://www.googleapis.com/auth/spreadsheets",
-        "https://www.googleapis.com/auth/drive"
-    ]
-    creds = Credentials.from_service_account_info(
-        st.secrets["gcp_service_account"],
-        scopes=scope
-    )
-    client = gspread.authorize(creds)
-    worksheet = client.open("Reminder_SABAL").worksheet("progress")
-    all_data = worksheet.get_all_values()
-    headers = all_data[0]
-    rows = all_data[1:]
-    df = pd.DataFrame(rows, columns=headers)
-    
-    # Apply Landscape Filter
-    if selected_landscape != "All":
-        df = df[df["Landscape"] == selected_landscape]
-        
-    # Convert numeric columns
-    numeric_cols = [
-        "Total HH",
-        "No of SHG groups",
-        "Total Landless HH",
-        "Total Geography in acre",
-        "Total Forest land in acres",
-        "Total Common land ( Panchayat/ revenue forest land) in acres",
-        "Total Orchard lands in acres",
-        "Total HH own Orchards",
-        "Total HH who has eco intensified their orchards",
-        "Total Paddy in acres",
-        "Total Paddy in NF in acres",
-        "Total Mettu land in acres",
-        "Total Mettu under NF in acres"
-    ]
-    for col in numeric_cols:
-        if col in df.columns:
-            df[col] = pd.to_numeric(df[col], errors="coerce").fillna(0)
-        else:
-            st.warning(f"Column not found: {col}")
-            
-    st.subheader("📈 Overview")
-    demo = (
-        df.groupby("Landscape")
-        .agg(
-            Total_Villages=("Village", "nunique"),
-            Total_HHs=("Total HH", "sum"),
-            Total_SHGs=("No of SHG groups", "sum"),
-            Total_Landless_HH=("Total Landless HH", "sum")
+        st.title("📊 Landscape Profiles")
+        scope = [
+            "https://www.googleapis.com/auth/spreadsheets",
+            "https://www.googleapis.com/auth/drive"
+        ]
+        creds = Credentials.from_service_account_info(
+            st.secrets["gcp_service_account"],
+            scopes=scope
         )
-        .reset_index()
-    )
-    total_landscapes = demo["Landscape"].nunique()
-    total_villages = int(demo["Total_Villages"].sum())
-    total_hhs = int(demo["Total_HHs"].sum())
-    total_shgs = int(demo["Total_SHGs"].sum())
+        client = gspread.authorize(creds)
+        worksheet = client.open("Reminder_SABAL").worksheet("progress")
+        all_data = worksheet.get_all_values()
+        headers = all_data[0]
+        rows = all_data[1:]
+        df = pd.DataFrame(rows, columns=headers)
+    
+        # Apply Landscape Filter
+        if selected_landscape != "All":
+            df = df[df["Landscape"] == selected_landscape]
+        
+        # Convert numeric columns
+        numeric_cols = [
+            "Total HH",
+            "No of SHG groups",
+            "Total Landless HH",
+            "Total Geography in acre",
+            "Total Forest land in acres",
+            "Total Common land ( Panchayat/ revenue forest land) in acres",
+            "Total Orchard lands in acres",
+            "Total HH own Orchards",
+            "Total HH who has eco intensified their orchards",
+            "Total Paddy in acres",
+            "Total Paddy in NF in acres",
+            "Total Mettu land in acres",
+            "Total Mettu under NF in acres"
+        ]
+        for col in numeric_cols:
+            if col in df.columns:
+                df[col] = pd.to_numeric(df[col], errors="coerce").fillna(0)
+            else:
+                st.warning(f"Column not found: {col}")
+            
+        st.subheader("📈 Overview")
+        demo = (
+            df.groupby("Landscape")
+            .agg(
+                Total_Villages=("Village", "nunique"),
+                Total_HHs=("Total HH", "sum"),
+                Total_SHGs=("No of SHG groups", "sum"),
+                Total_Landless_HH=("Total Landless HH", "sum")
+            )
+            .reset_index()
+        )
+        total_landscapes = demo["Landscape"].nunique()
+        total_villages = int(demo["Total_Villages"].sum())
+        total_hhs = int(demo["Total_HHs"].sum())
+        total_shgs = int(demo["Total_SHGs"].sum())
     total_landless = int(demo["Total_Landless_HH"].sum())
     col1, col2, col3, col4, col5 = st.columns(5)
     col1.metric("🏞 Landscapes", total_landscapes)
