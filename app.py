@@ -239,7 +239,7 @@ elif page == "Landscape profiles":
     headers = all_data[0]
     rows = all_data[1:]
     df = pd.DataFrame(rows, columns=headers)
-    st.dataframe(df.head(), use_container_width=True)
+    st.write(df.head())
     st.write(df.columns.tolist())
     
 elif page == "Dashboards":
