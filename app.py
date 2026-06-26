@@ -400,6 +400,7 @@ elif page == "Landscape profiles":
     )
 
     st.plotly_chart(fig, use_container_width=True)
+    forest = forest.sort_values("Common %", ascending=False)
     fig = px.bar(
         forest,
         x="Common %",
@@ -428,6 +429,7 @@ elif page == "Landscape profiles":
     )
 
     st.plotly_chart(fig, use_container_width=True)
+    forest = forest.sort_values("Orchard %", ascending=False)
     fig = px.bar(
         forest,
         x="Orchard %",
@@ -456,6 +458,7 @@ elif page == "Landscape profiles":
     )
 
     st.plotly_chart(fig, use_container_width=True)
+    forest = forest.sort_values("HH Intensified %", ascending=False)
     fig = px.bar(
         forest,
         x="HH Intensified %",
@@ -508,6 +511,7 @@ elif page == "Landscape profiles":
     )
 
     paddy = paddy.fillna(0)
+    paddy = paddy.sort_values("Paddy NF %", ascending=False)
     fig = px.bar(
         paddy,
         x="Paddy NF %",
@@ -536,6 +540,7 @@ elif page == "Landscape profiles":
     )
 
     st.plotly_chart(fig, use_container_width=True)
+    paddy = paddy.sort_values("Mettu NF %", ascending=False)
     fig = px.bar(
         paddy,
         x="Mettu NF %",
@@ -605,6 +610,7 @@ elif page == "Landscape profiles":
     )
 
     micro = micro.fillna(0)
+    micro = micro.sort_values("Micro %", ascending=False)
     fig = px.bar(
         micro,
         x="Micro %",
