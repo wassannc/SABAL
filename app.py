@@ -274,8 +274,25 @@ elif page == "Landscape profiles":
     col3.metric("👨‍👩‍👧‍👦 Households", total_hhs)
     col4.metric("👥 SHG Groups", total_shgs)
     col5.metric("🏠 Landless HH", total_landless)
-    
-  
+
+    st.markdown("---")
+    st.subheader("📈 Demographical Analysis")
+    # Convert Tribal HH percentage
+    df["% of tribal HH"] = (
+        df["% of tribal HH"]
+        .astype(str)
+        .str.replace("%", "", regex=False)
+    )
+
+    df["% of tribal HH"] = pd.to_numeric(
+        df["% of tribal HH"],
+        errors="coerce"
+    )
+    tribal = (
+        df.groupby("Landscape")["% of tribal HH"]
+            .mean()
+            .reset_index()
+    )
 
     
 elif page == "Dashboards":
