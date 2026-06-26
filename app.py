@@ -487,12 +487,12 @@ elif page == "Landscape profiles":
     )
 
     paddy = paddy.fillna(0)
-    ig = px.bar(
-        forest,
+    fig = px.bar(
+        paddy,
         x="Paddy NF %",
         y="Landscape",
         orientation="h",
-        text="HH Intensified %",
+        text="Paddy NF %",
         title="Paddy under Natural Farming (%)",
         color="Paddy NF %",
         color_continuous_scale="YlGn"
