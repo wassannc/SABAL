@@ -613,7 +613,8 @@ elif page == "Dashboards":
             "Bio Resource Centers",
             "Capacity Building",
             "Coffee Plots",
-            "Gender"
+            "Gender",
+            "Fisheries"
         ]
     )
 
