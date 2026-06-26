@@ -387,15 +387,30 @@ elif page == "Landscape profiles":
     )
 
     st.plotly_chart(fig, use_container_width=True)
-    x="Common %"
-    title="Common Land (%) by Landscape"
-    color="Common %"
-    color_continuous_scale="Blues"
+    fig = px.bar(
+        forest,
+        x="Common %",
+        y="Landscape",
+        orientation="h",
+        text="Common %",
+        title="Common Land (%) by Landscape",
+        color="Common %",
+        color_continuous_scale="Blues"
+    )
 
-    x="HH Intensified %"
-    title="HH Intensified Orchards (%)"
-    color="HH Intensified %"
-    color_continuous_scale="Purples"
+    fig.update_traces(
+        texttemplate="%{text:.1f}%",
+        textposition="outside"
+    )
+
+    fig.update_layout(
+        height=450,
+        xaxis_title="Common Land (%)",
+        yaxis_title="",
+        coloraxis_showscale=False
+    )
+
+    st.plotly_chart(fig, use_container_width=True)
     
 elif page == "Dashboards":
 
