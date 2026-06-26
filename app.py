@@ -387,6 +387,10 @@ elif page == "Landscape profiles":
     )
 
     st.plotly_chart(fig, use_container_width=True)
+    x="Common %"
+    title="Common Land (%) by Landscape"
+    color="Common %"
+    color_continuous_scale="Blues"
     
 elif page == "Dashboards":
 
