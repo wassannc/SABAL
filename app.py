@@ -254,7 +254,11 @@ elif page == "Landscape profiles":
         "Total Common land ( Panchayat/ revenue forest land) in acres",
         "Total Orchard lands in acres",
         "Total HH own Orchards",
-        "Total HH who has eco intensified their orchards"
+        "Total HH who has eco intensified their orchards",
+        "Total Paddy in acres",
+        "Total Paddy in NF in acres",
+        "Total Mettu land in acres",
+        "Total Mettu under NF in acres"
     ]
     for col in numeric_cols:
         if col in df.columns:
@@ -459,6 +463,7 @@ elif page == "Landscape profiles":
     )
 
     st.plotly_chart(fig, use_container_width=True)
+    
     st.markdown("---")
     st.subheader("🌾 Paddy & Mettu Lands")
     paddy = (
