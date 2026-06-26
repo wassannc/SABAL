@@ -371,7 +371,7 @@ elif page == "Landscape profiles":
     )
 
     forest = forest.fillna(0)
-
+    forest = forest.sort_values("Forest %", ascending=False)
     fig = px.bar(
         forest,
         x="Forest %",
