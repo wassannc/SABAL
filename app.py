@@ -223,7 +223,17 @@ if page == "MIS-Status":
                 else:
                     st.warning(f"{landscape_col} not found")
                     
-if dashboard == "📊 Landscape Profiles":
+    
+elif page == "Dashboards":
+
+    dashboard = st.radio(
+        "Select Dashboard",
+        [
+            "📊 Landscape Profiles",
+            "📈 Power BI Dashboards"
+        ]
+    )
+    if dashboard == "📊 Landscape Profiles":
     st.title("📊 Landscape Profiles")
     scope = [
         "https://www.googleapis.com/auth/spreadsheets",
@@ -639,16 +649,7 @@ if dashboard == "📊 Landscape Profiles":
     )
 
     st.plotly_chart(fig, use_container_width=True)
-    
-elif page == "Dashboards":
 
-    dashboard = st.radio(
-        "Select Dashboard",
-        [
-            "📊 Landscape Profiles",
-            "📈 Power BI Dashboards"
-        ]
-    )
 elif dashboard == "📈 Power BI Dashboards":
     # Dropdown
     dashboard_option = st.selectbox(
