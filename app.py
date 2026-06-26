@@ -348,88 +348,88 @@ elif page == "Dashboards":
             title_x=0.5
         )
 
-    st.plotly_chart(fig, use_container_width=True)
-    st.markdown("---")
-    st.subheader("🌳 Forest & Common Lands")
+        st.plotly_chart(fig, use_container_width=True)
+        st.markdown("---")
+        st.subheader("🌳 Forest & Common Lands")
 
-    forest = (
-        df.groupby("Landscape")
-          .agg(
-              Geography=("Total Geography in acre","sum"),
-              Forest=("Total Forest land in acres","sum"),
-              Common=("Total Common land ( Panchayat/ revenue forest land) in acres","sum"),
-              Orchard=("Total Orchard lands in acres","sum"),
-              Orchard_HH=("Total HH own Orchards","sum"),
-              Intensified=("Total HH who has eco intensified their orchards","sum")
-          )
-          .reset_index()
-    )
-    forest["Forest %"] = (
-        forest["Forest"] / forest["Geography"] * 100
-    )
-
-    forest["Common %"] = (
-        forest["Common"] / forest["Geography"] * 100
-    )
-
-    forest["Orchard %"] = (
-        forest["Orchard"] / forest["Geography"] * 100
-    )
-
-    forest["HH Intensified %"] = (
-        forest["Intensified"] / forest["Orchard_HH"] * 100
-    )
-
-    forest = forest.fillna(0)
-    forest = forest.sort_values("Forest %", ascending=False)
-    fig = px.bar(
-        forest,
-        x="Forest %",
-        y="Landscape",
-        orientation="h",
-        text="Forest %",
-        title="Forest Land (%) by Landscape",
-        color="Forest %",
-        color_continuous_scale="Greens"
-    )
-
-    fig.update_traces(
-        texttemplate="<b>%{text:.1f}%</b>",
-        textposition="outside",
-        textfont=dict(
-            color="black",
-            size=14
+        forest = (
+            df.groupby("Landscape")
+              .agg(
+                  Geography=("Total Geography in acre","sum"),
+                  Forest=("Total Forest land in acres","sum"),
+                  Common=("Total Common land ( Panchayat/ revenue forest land) in acres","sum"),
+                  Orchard=("Total Orchard lands in acres","sum"),
+                  Orchard_HH=("Total HH own Orchards","sum"),
+                  Intensified=("Total HH who has eco intensified their orchards","sum")
+              )
+              .reset_index()
         )
-    )
-
-    fig.update_layout(
-        height=450,
-        xaxis_title="Forest Land (%)",
-        yaxis_title="",
-        coloraxis_showscale=False
-    )
-
-    st.plotly_chart(fig, use_container_width=True)
-    forest = forest.sort_values("Common %", ascending=False)
-    fig = px.bar(
-        forest,
-        x="Common %",
-        y="Landscape",
-        orientation="h",
-        text="Common %",
-        title="Common Land (%) by Landscape",
-        color="Common %",
-        color_continuous_scale="Blues"
-    )
-
-    fig.update_traces(
-        texttemplate="<b>%{text:.1f}%</b>",
-        textposition="outside",
-        textfont=dict(
-            color="black",
-            size=14
+        forest["Forest %"] = (
+            forest["Forest"] / forest["Geography"] * 100
         )
-    )
+
+        forest["Common %"] = (
+            forest["Common"] / forest["Geography"] * 100
+        )
+
+        forest["Orchard %"] = (
+            forest["Orchard"] / forest["Geography"] * 100
+        )
+
+        forest["HH Intensified %"] = (
+            forest["Intensified"] / forest["Orchard_HH"] * 100
+        )
+
+        forest = forest.fillna(0)
+        forest = forest.sort_values("Forest %", ascending=False)
+        fig = px.bar(
+            forest,
+            x="Forest %",
+            y="Landscape",
+            orientation="h",
+            text="Forest %",
+            title="Forest Land (%) by Landscape",
+            color="Forest %",
+            color_continuous_scale="Greens"
+        )
+
+        fig.update_traces(
+            texttemplate="<b>%{text:.1f}%</b>",
+            textposition="outside",
+            textfont=dict(
+                color="black",
+                size=14
+            )
+        )
+
+        fig.update_layout(
+            height=450,
+            xaxis_title="Forest Land (%)",
+            yaxis_title="",
+            coloraxis_showscale=False
+        )
+
+        st.plotly_chart(fig, use_container_width=True)
+        forest = forest.sort_values("Common %", ascending=False)
+        fig = px.bar(
+            forest,
+            x="Common %",
+            y="Landscape",
+            orientation="h",
+            text="Common %",
+            title="Common Land (%) by Landscape",
+            color="Common %",
+            color_continuous_scale="Blues"
+        )
+
+        fig.update_traces(
+            texttemplate="<b>%{text:.1f}%</b>",
+            textposition="outside",
+            textfont=dict(
+                color="black",
+                size=14
+            )
+        )
 
     fig.update_layout(
         height=450,
