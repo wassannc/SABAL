@@ -235,10 +235,11 @@ elif page == "Landscape profiles":
     )
     client = gspread.authorize(creds)
     worksheet = client.open("Reminder_SABAL").worksheet("progress")
-    st.write("Headers")
-    st.write(worksheet.row_values(1))
-    df = pd.DataFrame(data)
-    st.dataframe(df.head())
+    all_data = worksheet.get_all_values()
+    headers = all_data[0]
+    rows = all_data[1:]
+    df = pd.DataFrame(rows, columns=headers)
+    st.dataframe(df.head(), use_container_width=True)
     st.write(df.columns.tolist())
     
 elif page == "Dashboards":
