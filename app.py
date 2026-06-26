@@ -248,7 +248,7 @@ elif page == "Landscape profiles":
     numeric_cols = [
         "Total HH",
         "No of SHG groups",
-        "Total Landless HH"
+        "Total Landless HH",
         "Total Geography in acre",
         "Total Forest land in acres",
         "Total Common land ( Panchayat/ revenue forest land) in acres",
