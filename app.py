@@ -257,7 +257,11 @@ elif page == "Landscape profiles":
         "Total HH who has eco intensified their orchards"
     ]
     for col in numeric_cols:
-        df[col] = pd.to_numeric(df[col], errors="coerce").fillna(0)
+        if col in df.columns:
+            df[col] = pd.to_numeric(df[col], errors="coerce").fillna(0)
+        else:
+            st.warning(f"Column not found: {col}")
+            
     st.subheader("📈 Overview")
     demo = (
         df.groupby("Landscape")
