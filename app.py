@@ -580,75 +580,75 @@ elif page == "Dashboards":
 
         st.plotly_chart(fig, use_container_width=True)
 
-    st.markdown("---")
-    st.subheader("🏭 Micro Enterprises")
-    micro_cols = [
-        "Total HH",
-        "Total Cattle owner who renovated their cattle sheds",
-        "Total Sheep and Goats owners who renovated their sheds",
-        "No of Desi Poultry Breeding Farms",
-        "No of seed Entrepreneurs",
-        "No of feed Entrepreneurs"
-    ]
+        st.markdown("---")
+        st.subheader("🏭 Micro Enterprises")
+        micro_cols = [
+            "Total HH",
+            "Total Cattle owner who renovated their cattle sheds",
+            "Total Sheep and Goats owners who renovated their sheds",
+            "No of Desi Poultry Breeding Farms",
+            "No of seed Entrepreneurs",
+            "No of feed Entrepreneurs"
+        ]
 
-    for col in micro_cols:
-        df[col] = pd.to_numeric(df[col], errors="coerce").fillna(0)
+        for col in micro_cols:
+            df[col] = pd.to_numeric(df[col], errors="coerce").fillna(0)
         
-    micro = (
-        df.groupby("Landscape")
-          .agg(
-              Total_HH=("Total HH", "sum"),
-              Cattle=("Total Cattle owner who renovated their cattle sheds", "sum"),
-              Sheep=("Total Sheep and Goats owners who renovated their sheds", "sum"),
-              Poultry=("No of Desi Poultry Breeding Farms", "sum"),
-              Seed=("No of seed Entrepreneurs", "sum"),
-              Feed=("No of feed Entrepreneurs", "sum")
-          )
-          .reset_index()
-    )
-
-    micro["Total Micro"] = (
-        micro["Cattle"] +
-        micro["Sheep"] +
-        micro["Poultry"] +
-        micro["Seed"] +
-        micro["Feed"]
-    )
-    micro["Micro %"] = (
-        micro["Total Micro"] /
-        micro["Total_HH"] * 100
-    )
-
-    micro = micro.fillna(0)
-    micro = micro.sort_values("Micro %", ascending=False)
-    fig = px.bar(
-        micro,
-        x="Micro %",
-        y="Landscape",
-        orientation="h",
-        text="Micro %",
-        title="% of HHs having Micro enterprises",
-        color="Micro %",
-        color_continuous_scale="Teal"
-    )
-
-    fig.update_traces(
-        texttemplate="<b>%{text:.1f}%</b>",
-        textposition="outside",
-        textfont=dict(
-            color="black",
-            size=14
+        micro = (
+            df.groupby("Landscape")
+              .agg(
+                  Total_HH=("Total HH", "sum"),
+                  Cattle=("Total Cattle owner who renovated their cattle sheds", "sum"),
+                  Sheep=("Total Sheep and Goats owners who renovated their sheds", "sum"),
+                  Poultry=("No of Desi Poultry Breeding Farms", "sum"),
+                  Seed=("No of seed Entrepreneurs", "sum"),
+                  Feed=("No of feed Entrepreneurs", "sum")
+              )
+              .reset_index()
         )
-    )
 
-    fig.update_layout(
-        height=450,
-        xaxis_title="Micro Enterprises (%)",
-        yaxis_title="",
-        coloraxis_showscale=False
-    )
+        micro["Total Micro"] = (
+            micro["Cattle"] +
+            micro["Sheep"] +
+            micro["Poultry"] +
+            micro["Seed"] +
+            micro["Feed"]
+        )
+        micro["Micro %"] = (
+            micro["Total Micro"] /
+            micro["Total_HH"] * 100
+        )
 
-    st.plotly_chart(fig, use_container_width=True)
+        micro = micro.fillna(0)
+        micro = micro.sort_values("Micro %", ascending=False)
+        fig = px.bar(
+            micro,
+            x="Micro %",
+            y="Landscape",
+            orientation="h",
+            text="Micro %",
+            title="% of HHs having Micro enterprises",
+            color="Micro %",
+            color_continuous_scale="Teal"
+        )
+
+        fig.update_traces(
+            texttemplate="<b>%{text:.1f}%</b>",
+            textposition="outside",
+            textfont=dict(
+                color="black",
+                size=14
+            )
+        )
+
+        fig.update_layout(
+            height=450,
+            xaxis_title="Micro Enterprises (%)",
+            yaxis_title="",
+            coloraxis_showscale=False
+        )
+
+        st.plotly_chart(fig, use_container_width=True)
 
 elif dashboard == "📈 Power BI Dashboards":
     # Dropdown
