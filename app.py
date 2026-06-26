@@ -391,6 +391,11 @@ elif page == "Landscape profiles":
     title="Common Land (%) by Landscape"
     color="Common %"
     color_continuous_scale="Blues"
+
+    x="HH Intensified %"
+    title="HH Intensified Orchards (%)"
+    color="HH Intensified %"
+    color_continuous_scale="Purples"
     
 elif page == "Dashboards":
 
