@@ -487,7 +487,30 @@ elif page == "Landscape profiles":
     )
 
     paddy = paddy.fillna(0)
-    
+    ig = px.bar(
+        forest,
+        x="Paddy NF %",
+        y="Landscape",
+        orientation="h",
+        text="HH Intensified %",
+        title="Paddy under Natural Farming (%)",
+        color="Paddy NF %",
+        color_continuous_scale="YlGn"
+    )
+
+    fig.update_traces(
+        texttemplate="%{text:.1f}%",
+        textposition="outside"
+    )
+
+    fig.update_layout(
+        height=450,
+        xaxis_title="HH Intensified (%)",
+        yaxis_title="",
+        coloraxis_showscale=False
+    )
+
+    st.plotly_chart(fig, use_container_width=True)
 elif page == "Dashboards":
 
     st.title("📊 SABAL Dashboards")
