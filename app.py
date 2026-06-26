@@ -291,62 +291,62 @@ elif page == "Dashboards":
         total_villages = int(demo["Total_Villages"].sum())
         total_hhs = int(demo["Total_HHs"].sum())
         total_shgs = int(demo["Total_SHGs"].sum())
-    total_landless = int(demo["Total_Landless_HH"].sum())
-    col1, col2, col3, col4, col5 = st.columns(5)
-    col1.metric("🏞 Landscapes", total_landscapes)
-    col2.metric("🏘 Villages", total_villages)
-    col3.metric("👨‍👩‍👧‍👦 Households", total_hhs)
-    col4.metric("👥 SHG Groups", total_shgs)
-    col5.metric("🏠 Landless HH", total_landless)
+        total_landless = int(demo["Total_Landless_HH"].sum())
+        col1, col2, col3, col4, col5 = st.columns(5)
+        col1.metric("🏞 Landscapes", total_landscapes)
+        col2.metric("🏘 Villages", total_villages)
+        col3.metric("👨‍👩‍👧‍👦 Households", total_hhs)
+        col4.metric("👥 SHG Groups", total_shgs)
+        col5.metric("🏠 Landless HH", total_landless)
 
-    st.markdown("---")
-    st.subheader("📈 Demographical Info")
-    # Convert Tribal HH percentage
+        st.markdown("---")
+        st.subheader("📈 Demographical Info")
+        # Convert Tribal HH percentage
     
-    df["% of tribal HH"] = (
-        df["% of tribal HH"]
-        .astype(str)
-        .str.replace("%", "", regex=False)
-    )
-
-    df["% of tribal HH"] = pd.to_numeric(
-        df["% of tribal HH"],
-        errors="coerce"
-    )
-    tribal = (
-        df.groupby("Landscape")["% of tribal HH"]
-            .mean()
-            .reset_index()
-    )
-    import plotly.express as px
-    tribal = tribal.sort_values("% of tribal HH", ascending=False)
-    fig = px.bar(
-        tribal,
-        x="% of tribal HH",
-        y="Landscape",
-        orientation="h",
-        text="% of tribal HH",
-        title="Tribal Households (%) by Landscape",
-        color="% of tribal HH",
-        color_continuous_scale="Viridis"
-    )
-
-    fig.update_traces(
-        texttemplate="<b>%{text:.1f}%</b>",
-        textposition="outside",
-        textfont=dict(
-            color="black",
-            size=14
+        df["% of tribal HH"] = (
+            df["% of tribal HH"]
+            .astype(str)
+            .str.replace("%", "", regex=False)
         )
-    )
 
-    fig.update_layout(
-        height=450,
-        xaxis_title="Tribal Households (%)",
-        yaxis_title="",
-        coloraxis_showscale=False,
-        title_x=0.5
-    )
+        df["% of tribal HH"] = pd.to_numeric(
+            df["% of tribal HH"],
+            errors="coerce"
+        )
+        tribal = (
+            df.groupby("Landscape")["% of tribal HH"]
+                .mean()
+                .reset_index()
+        )
+        import plotly.express as px
+        tribal = tribal.sort_values("% of tribal HH", ascending=False)
+        fig = px.bar(
+            tribal,
+            x="% of tribal HH",
+            y="Landscape",
+            orientation="h",
+            text="% of tribal HH",
+            title="Tribal Households (%) by Landscape",
+            color="% of tribal HH",
+            color_continuous_scale="Viridis"
+        )
+
+        fig.update_traces(
+            texttemplate="<b>%{text:.1f}%</b>",
+            textposition="outside",
+            textfont=dict(
+                color="black",
+                size=14
+            )
+        )
+
+        fig.update_layout(
+            height=450,
+            xaxis_title="Tribal Households (%)",
+            yaxis_title="",
+            coloraxis_showscale=False,
+            title_x=0.5
+        )
 
     st.plotly_chart(fig, use_container_width=True)
     st.markdown("---")
