@@ -511,6 +511,31 @@ elif page == "Landscape profiles":
     )
 
     st.plotly_chart(fig, use_container_width=True)
+    fig = px.bar(
+        paddy,
+        x="Mettu NF %",
+        y="Landscape",
+        orientation="h",
+        text="Mettu NF %",
+        title="Mettu under Natural Farming (%)",
+        color="Mettu NF %",
+        color_continuous_scale="PuBuGn"
+    )
+
+    fig.update_traces(
+        texttemplate="%{text:.1f}%",
+        textposition="outside"
+    )
+
+    fig.update_layout(
+        height=450,
+        xaxis_title="Mettu under NF (%)",
+        yaxis_title="",
+        coloraxis_showscale=False
+    )
+
+    st.plotly_chart(fig, use_container_width=True)
+    
 elif page == "Dashboards":
 
     st.title("📊 SABAL Dashboards")
