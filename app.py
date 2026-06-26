@@ -239,6 +239,29 @@ elif page == "Landscape profiles":
     headers = all_data[0]
     rows = all_data[1:]
     df = pd.DataFrame(rows, columns=headers)
+    # Convert numeric columns
+    numeric_cols = [
+        "Total HH",
+        "No of SHG groups",
+        "Total Landless HH"
+    ]
+    for col in numeric_cols:
+        df[col] = pd.to_numeric(df[col], errors="coerce").fillna(0)
+    # Demographical Information
+    demo = (
+        df.groupby("Landscape")
+        .agg(
+            Total_Villages=("Village", "nunique"),
+            Total_HHs=("Total HH", "sum"),
+            Total_SHGs=("No of SHG groups", "sum"),
+            Total_Landless_HH=("Total Landless HH", "sum")
+        )
+        .reset_index()
+    )
+    st.subheader("📊 Demographical Information")
+    st.dataframe(demo, use_container_width=True)
+    
+    
     
 elif page == "Dashboards":
 
