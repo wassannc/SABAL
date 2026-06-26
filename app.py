@@ -321,8 +321,12 @@ elif page == "Landscape profiles":
     )
 
     fig.update_traces(
-        texttemplate="%{text:.1f}%",
-        textposition="outside"
+        texttemplate="<b>%{text:.1f}%</b>",
+        textposition="outside",
+        textfont=dict(
+            color="black",
+            size=14
+        )
     )
 
     fig.update_layout(
