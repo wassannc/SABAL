@@ -498,87 +498,87 @@ elif page == "Dashboards":
 
         st.plotly_chart(fig, use_container_width=True)
     
-    st.markdown("---")
-    st.subheader("🌾 Paddy & Mettu Lands")
-    paddy = (
-        df.groupby("Landscape")
-          .agg(
-              Total_Paddy=("Total Paddy in acres", "sum"),
-              NF_Paddy=("Total Paddy in NF in acres", "sum"),
-              Total_Mettu=("Total Mettu land in acres", "sum"),
-              NF_Mettu=("Total Mettu under NF in acres", "sum")
-          )
-          .reset_index()
-    )
-    paddy["Paddy NF %"] = (
-        paddy["NF_Paddy"] /
-        paddy["Total_Paddy"] * 100
-    )
-
-    paddy["Mettu NF %"] = (
-        paddy["NF_Mettu"] /
-        paddy["Total_Mettu"] * 100
-    )
-
-    paddy = paddy.fillna(0)
-    paddy = paddy.sort_values("Paddy NF %", ascending=False)
-    fig = px.bar(
-        paddy,
-        x="Paddy NF %",
-        y="Landscape",
-        orientation="h",
-        text="Paddy NF %",
-        title="Paddy under Natural Farming (%)",
-        color="Paddy NF %",
-        color_continuous_scale="YlGn"
-    )
-
-    fig.update_traces(
-        texttemplate="<b>%{text:.1f}%</b>",
-        textposition="outside",
-        textfont=dict(
-            color="black",
-            size=14
+        st.markdown("---")
+        st.subheader("🌾 Paddy & Mettu Lands")
+        paddy = (
+            df.groupby("Landscape")
+              .agg(
+                  Total_Paddy=("Total Paddy in acres", "sum"),
+                  NF_Paddy=("Total Paddy in NF in acres", "sum"),
+                  Total_Mettu=("Total Mettu land in acres", "sum"),
+                  NF_Mettu=("Total Mettu under NF in acres", "sum")
+              )
+              .reset_index()
         )
-    )
-
-    fig.update_layout(
-        height=450,
-        xaxis_title="HH Intensified (%)",
-        yaxis_title="",
-        coloraxis_showscale=False
-    )
-
-    st.plotly_chart(fig, use_container_width=True)
-    paddy = paddy.sort_values("Mettu NF %", ascending=False)
-    fig = px.bar(
-        paddy,
-        x="Mettu NF %",
-        y="Landscape",
-        orientation="h",
-        text="Mettu NF %",
-        title="Mettu under Natural Farming (%)",
-        color="Mettu NF %",
-        color_continuous_scale="PuBuGn"
-    )
-
-    fig.update_traces(
-        texttemplate="<b>%{text:.1f}%</b>",
-        textposition="outside",
-        textfont=dict(
-            color="black",
-            size=14
+        paddy["Paddy NF %"] = (
+            paddy["NF_Paddy"] /
+            paddy["Total_Paddy"] * 100
         )
-    )
 
-    fig.update_layout(
-        height=450,
-        xaxis_title="Mettu under NF (%)",
-        yaxis_title="",
-        coloraxis_showscale=False
-    )
+        paddy["Mettu NF %"] = (
+            paddy["NF_Mettu"] /
+            paddy["Total_Mettu"] * 100
+        )
 
-    st.plotly_chart(fig, use_container_width=True)
+        paddy = paddy.fillna(0)
+        paddy = paddy.sort_values("Paddy NF %", ascending=False)
+        fig = px.bar(
+            paddy,
+            x="Paddy NF %",
+            y="Landscape",
+            orientation="h",
+            text="Paddy NF %",
+            title="Paddy under Natural Farming (%)",
+            color="Paddy NF %",
+            color_continuous_scale="YlGn"
+        )
+
+        fig.update_traces(
+            texttemplate="<b>%{text:.1f}%</b>",
+            textposition="outside",
+            textfont=dict(
+                color="black",
+                size=14
+            )
+        )
+
+        fig.update_layout(
+            height=450,
+            xaxis_title="HH Intensified (%)",
+            yaxis_title="",
+            coloraxis_showscale=False
+        )
+
+        st.plotly_chart(fig, use_container_width=True)
+        paddy = paddy.sort_values("Mettu NF %", ascending=False)
+        fig = px.bar(
+            paddy,
+            x="Mettu NF %",
+            y="Landscape",
+            orientation="h",
+            text="Mettu NF %",
+            title="Mettu under Natural Farming (%)",
+            color="Mettu NF %",
+            color_continuous_scale="PuBuGn"
+        )
+
+        fig.update_traces(
+            texttemplate="<b>%{text:.1f}%</b>",
+            textposition="outside",
+            textfont=dict(
+                color="black",
+                size=14
+            )
+        )
+
+        fig.update_layout(
+            height=450,
+            xaxis_title="Mettu under NF (%)",
+            yaxis_title="",
+            coloraxis_showscale=False
+        )
+
+        st.plotly_chart(fig, use_container_width=True)
 
     st.markdown("---")
     st.subheader("🏭 Micro Enterprises")
