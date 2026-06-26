@@ -239,9 +239,10 @@ elif page == "Landscape profiles":
     headers = all_data[0]
     rows = all_data[1:]
     df = pd.DataFrame(rows, columns=headers)
+    
     # Apply Landscape Filter
-    if landscape != "All":
-        df = df[df["Landscape"] == landscape]
+    if selected_landscape != "All":
+        df = df[df["Landscape"] == selected_landscape]
         
     # Convert numeric columns
     numeric_cols = [
