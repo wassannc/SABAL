@@ -649,7 +649,7 @@ elif page == "Dashboards":
             "📈 Power BI Dashboards"
         ]
     )
-    elif dashboard == "📈 Power BI Dashboards":
+elif dashboard == "📈 Power BI Dashboards":
     # Dropdown
     dashboard_option = st.selectbox(
         "Select Dashboard",
