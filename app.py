@@ -650,35 +650,35 @@ elif page == "Dashboards":
 
         st.plotly_chart(fig, use_container_width=True)
 
-elif dashboard == "📈 Power BI Dashboards":
-    # Dropdown
-    dashboard_option = st.selectbox(
-        "Select Dashboard",
-        [
-            "NF-Trails",
-            "Bio Resource Centers",
-            "Capacity Building",
-            "Coffee Plots",
-            "Gender",
-            "Fisheries"
-        ]
-    )
+    elif dashboard == "📈 Power BI Dashboards":
+        # Dropdown
+        dashboard_option = st.selectbox(
+            "Select Dashboard",
+            [
+                "NF-Trails",
+                "Bio Resource Centers",
+                "Capacity Building",
+                "Coffee Plots",
+                "Gender",
+                "Fisheries"
+            ]
+        )
 
-    # Links mapping
-    dashboard_links = {
-        "NF-Trails": "https://app.powerbi.com/view?r=eyJrIjoiMjk4OTUxMGUtYjBjMS00YWEyLWEwZmUtMTVkNGI0M2EwZWQxIiwidCI6IjQ5NTM2MmE3LTQxMjItNDQ0OC1iNGU2LTIxYzQzZTRiZjRmZCJ9",
-        "Bio Resource Centers": "https://app.powerbi.com/view?r=eyJrIjoiN2YzM2ZhM2QtZTUzOC00ZTRkLTllN2EtNDFmNDg5MDhiNTIwIiwidCI6IjQ5NTM2MmE3LTQxMjItNDQ0OC1iNGU2LTIxYzQzZTRiZjRmZCJ9",
-        "Capacity Building": "https://app.powerbi.com/view?r=eyJrIjoiMTBjNjY4MWMtMTZhMi00ZDViLWE4OTQtYjNmM2I2MzVkMGVlIiwidCI6IjQ5NTM2MmE3LTQxMjItNDQ0OC1iNGU2LTIxYzQzZTRiZjRmZCJ9",
-        "Coffee Plots": "https://app.powerbi.com/view?r=eyJrIjoiOTNjZDI5NzktYWJiMS00ZmUxLWE4ZWEtZDE0MjQzYWY3MzQzIiwidCI6IjQ5NTM2MmE3LTQxMjItNDQ0OC1iNGU2LTIxYzQzZTRiZjRmZCJ9&pageName=e08ee9a2644d492a41a5",
-        "Gender": "https://app.powerbi.com/view?r=eyJrIjoiNzZiNWQ0NDYtZmVkNi00NWVlLThhZTctYTEzYjg3NmUyNGE5IiwidCI6IjQ5NTM2MmE3LTQxMjItNDQ0OC1iNGU2LTIxYzQzZTRiZjRmZCJ9",
-        "Fisheries": "https://app.powerbi.com/view?r=eyJrIjoiNWNhODVkZGMtNzE4MC00YjQyLTgwMWQtMGVjMWViYjYyYTVlIiwidCI6IjQ5NTM2MmE3LTQxMjItNDQ0OC1iNGU2LTIxYzQzZTRiZjRmZCJ9"
-    }
+        # Links mapping
+        dashboard_links = {
+            "NF-Trails": "https://app.powerbi.com/view?r=eyJrIjoiMjk4OTUxMGUtYjBjMS00YWEyLWEwZmUtMTVkNGI0M2EwZWQxIiwidCI6IjQ5NTM2MmE3LTQxMjItNDQ0OC1iNGU2LTIxYzQzZTRiZjRmZCJ9",
+            "Bio Resource Centers": "https://app.powerbi.com/view?r=eyJrIjoiN2YzM2ZhM2QtZTUzOC00ZTRkLTllN2EtNDFmNDg5MDhiNTIwIiwidCI6IjQ5NTM2MmE3LTQxMjItNDQ0OC1iNGU2LTIxYzQzZTRiZjRmZCJ9",
+            "Capacity Building": "https://app.powerbi.com/view?r=eyJrIjoiMTBjNjY4MWMtMTZhMi00ZDViLWE4OTQtYjNmM2I2MzVkMGVlIiwidCI6IjQ5NTM2MmE3LTQxMjItNDQ0OC1iNGU2LTIxYzQzZTRiZjRmZCJ9",
+            "Coffee Plots": "https://app.powerbi.com/view?r=eyJrIjoiOTNjZDI5NzktYWJiMS00ZmUxLWE4ZWEtZDE0MjQzYWY3MzQzIiwidCI6IjQ5NTM2MmE3LTQxMjItNDQ0OC1iNGU2LTIxYzQzZTRiZjRmZCJ9&pageName=e08ee9a2644d492a41a5",
+            "Gender": "https://app.powerbi.com/view?r=eyJrIjoiNzZiNWQ0NDYtZmVkNi00NWVlLThhZTctYTEzYjg3NmUyNGE5IiwidCI6IjQ5NTM2MmE3LTQxMjItNDQ0OC1iNGU2LTIxYzQzZTRiZjRmZCJ9",
+            "Fisheries": "https://app.powerbi.com/view?r=eyJrIjoiNWNhODVkZGMtNzE4MC00YjQyLTgwMWQtMGVjMWViYjYyYTVlIiwidCI6IjQ5NTM2MmE3LTQxMjItNDQ0OC1iNGU2LTIxYzQzZTRiZjRmZCJ9"
+        }
 
-    st.components.v1.iframe(
-    dashboard_links[dashboard_option],
-    height=700,
-    scrolling=True
-) 
+        st.components.v1.iframe(
+        dashboard_links[dashboard_option],
+        height=700,
+        scrolling=True
+    ) 
     
 elif page in FORMS:
     st.title(f"📥 {page}")
