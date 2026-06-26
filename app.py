@@ -292,6 +292,7 @@ elif page == "Landscape profiles":
     st.markdown("---")
     st.subheader("📈 Demographical Info")
     # Convert Tribal HH percentage
+    tribal = tribal.sort_values("% of tribal HH", ascending=False)
     df["% of tribal HH"] = (
         df["% of tribal HH"]
         .astype(str)
