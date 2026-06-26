@@ -610,7 +610,7 @@ elif page == "Landscape profiles":
         y="Landscape",
         orientation="h",
         text="Micro %",
-        title="Micro Enterprises (%) by Landscape",
+        title="% of HHs having Micro enterprises",
         color="Micro %",
         color_continuous_scale="Teal"
     )
