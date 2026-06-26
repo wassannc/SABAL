@@ -226,13 +226,15 @@ if page == "MIS-Status":
     
 elif page == "Dashboards":
 
-    dashboard = st.radio(
-        "Select Dashboard",
+    st.sidebar.subheader("Dashboard")
+    dashboard = st.sidebar.radio(
+        "",
         [
             "📊 Landscape Profiles",
             "📈 Power BI Dashboards"
         ]
     )
+       
     if dashboard == "📊 Landscape Profiles":
         st.title("📊 Landscape Profiles")
         scope = [
