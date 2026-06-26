@@ -293,7 +293,34 @@ elif page == "Landscape profiles":
             .mean()
             .reset_index()
     )
+    import plotly.express as px
 
+    fig = px.bar(
+        tribal,
+        x="% of tribal HH",
+        y="Landscape",
+        orientation="h",
+        text="% of tribal HH",
+        title="Tribal Households (%) by Landscape",
+        color="% of tribal HH",
+        color_continuous_scale="Viridis"
+    )
+
+    fig.update_traces(
+        texttemplate="%{text:.1f}%",
+        textposition="outside"
+    )
+
+    fig.update_layout(
+        height=450,
+        xaxis_title="Tribal Households (%)",
+        yaxis_title="",
+        coloraxis_showscale=False,
+        title_x=0.5
+    )
+
+    st.plotly_chart(fig, use_container_width=True)
+    
     
 elif page == "Dashboards":
 
