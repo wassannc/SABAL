@@ -290,7 +290,7 @@ elif page == "Landscape profiles":
     col5.metric("🏠 Landless HH", total_landless)
 
     st.markdown("---")
-    st.subheader("📈 Demographical Analysis")
+    st.subheader("📈 Demographical Info")
     # Convert Tribal HH percentage
     df["% of tribal HH"] = (
         df["% of tribal HH"]
