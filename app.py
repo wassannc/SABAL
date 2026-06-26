@@ -459,6 +459,29 @@ elif page == "Landscape profiles":
     )
 
     st.plotly_chart(fig, use_container_width=True)
+    st.markdown("---")
+    st.subheader("🌾 Paddy & Mettu Lands")
+    paddy = (
+        df.groupby("Landscape")
+          .agg(
+              Total_Paddy=("Total Paddy in acres", "sum"),
+              NF_Paddy=("Total Paddy in NF in acres", "sum"),
+              Total_Mettu=("Total Mettu land in acres", "sum"),
+              NF_Mettu=("Total Mettu under NF in acres", "sum")
+          )
+          .reset_index()
+    )
+    paddy["Paddy NF %"] = (
+        paddy["NF_Paddy"] /
+        paddy["Total_Paddy"] * 100
+    )
+
+    paddy["Mettu NF %"] = (
+        paddy["NF_Mettu"] /
+        paddy["Total_Mettu"] * 100
+    )
+
+    paddy = paddy.fillna(0)
     
 elif page == "Dashboards":
 
