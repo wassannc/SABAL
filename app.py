@@ -535,6 +535,10 @@ elif page == "Landscape profiles":
     )
 
     st.plotly_chart(fig, use_container_width=True)
+
+    st.markdown("---")
+    st.subheader("🏭 Micro Enterprises")
+    st.write(df.columns.tolist())
     
 elif page == "Dashboards":
 
