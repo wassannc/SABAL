@@ -239,7 +239,10 @@ elif page == "Landscape profiles":
     headers = all_data[0]
     rows = all_data[1:]
     df = pd.DataFrame(rows, columns=headers)
-    
+    # Apply Landscape Filter
+    if landscape != "All":
+        df = df[df["Landscape"] == landscape]
+        
     # Convert numeric columns
     numeric_cols = [
         "Total HH",
@@ -260,10 +263,10 @@ elif page == "Landscape profiles":
         .reset_index()
     )
     total_landscapes = demo["Landscape"].nunique()
-    total_villages = demo["Total_Villages"].sum()
-    total_hhs = demo["Total_HHs"].sum()
-    total_shgs = demo["Total_SHGs"].sum()
-    total_landless = demo["Total_Landless_HH"].sum()
+    total_villages = int(demo["Total_Villages"].sum())
+    total_hhs = int(demo["Total_HHs"].sum())
+    total_shgs = int(demo["Total_SHGs"].sum())
+    total_landless = int(demo["Total_Landless_HH"].sum())
     col1, col2, col3, col4, col5 = st.columns(5)
     col1.metric("🏞 Landscapes", total_landscapes)
     col2.metric("🏘 Villages", total_villages)
