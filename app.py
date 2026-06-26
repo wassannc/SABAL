@@ -623,7 +623,8 @@ elif page == "Dashboards":
         "Bio Resource Centers": "https://app.powerbi.com/view?r=eyJrIjoiN2YzM2ZhM2QtZTUzOC00ZTRkLTllN2EtNDFmNDg5MDhiNTIwIiwidCI6IjQ5NTM2MmE3LTQxMjItNDQ0OC1iNGU2LTIxYzQzZTRiZjRmZCJ9",
         "Capacity Building": "https://app.powerbi.com/view?r=eyJrIjoiMTBjNjY4MWMtMTZhMi00ZDViLWE4OTQtYjNmM2I2MzVkMGVlIiwidCI6IjQ5NTM2MmE3LTQxMjItNDQ0OC1iNGU2LTIxYzQzZTRiZjRmZCJ9",
         "Coffee Plots": "https://app.powerbi.com/view?r=eyJrIjoiOTNjZDI5NzktYWJiMS00ZmUxLWE4ZWEtZDE0MjQzYWY3MzQzIiwidCI6IjQ5NTM2MmE3LTQxMjItNDQ0OC1iNGU2LTIxYzQzZTRiZjRmZCJ9&pageName=e08ee9a2644d492a41a5",
-        "Gender": "https://app.powerbi.com/view?r=eyJrIjoiNzZiNWQ0NDYtZmVkNi00NWVlLThhZTctYTEzYjg3NmUyNGE5IiwidCI6IjQ5NTM2MmE3LTQxMjItNDQ0OC1iNGU2LTIxYzQzZTRiZjRmZCJ9"
+        "Gender": "https://app.powerbi.com/view?r=eyJrIjoiNzZiNWQ0NDYtZmVkNi00NWVlLThhZTctYTEzYjg3NmUyNGE5IiwidCI6IjQ5NTM2MmE3LTQxMjItNDQ0OC1iNGU2LTIxYzQzZTRiZjRmZCJ9",
+        "Fisheries": "https://app.powerbi.com/view?r=eyJrIjoiNWNhODVkZGMtNzE4MC00YjQyLTgwMWQtMGVjMWViYjYyYTVlIiwidCI6IjQ5NTM2MmE3LTQxMjItNDQ0OC1iNGU2LTIxYzQzZTRiZjRmZCJ9"
     }
 
     st.components.v1.iframe(
