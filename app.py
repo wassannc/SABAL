@@ -223,7 +223,7 @@ if page == "MIS-Status":
                 else:
                     st.warning(f"{landscape_col} not found")
                     
-elif page == "Landscape profiles":
+if dashboard == "📊 Landscape Profiles":
     st.title("📊 Landscape Profiles")
     scope = [
         "https://www.googleapis.com/auth/spreadsheets",
@@ -642,8 +642,14 @@ elif page == "Landscape profiles":
     
 elif page == "Dashboards":
 
-    st.title("📊 SABAL Dashboards")
-
+    dashboard = st.radio(
+        "Select Dashboard",
+        [
+            "📊 Landscape Profiles",
+            "📈 Power BI Dashboards"
+        ]
+    )
+    elif dashboard == "📈 Power BI Dashboards":
     # Dropdown
     dashboard_option = st.selectbox(
         "Select Dashboard",
