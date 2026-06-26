@@ -345,6 +345,25 @@ elif page == "Landscape profiles":
           )
           .reset_index()
     )
+    forest["Forest %"] = (
+        forest["Forest"] / forest["Geography"] * 100
+    )
+
+    forest["Common %"] = (
+        forest["Common"] / forest["Geography"] * 100
+    )
+
+    forest["Orchard %"] = (
+        forest["Orchard"] / forest["Geography"] * 100
+    )
+
+    forest["HH Intensified %"] = (
+        forest["Intensified"] / forest["Orchard_HH"] * 100
+    )
+
+    forest = forest.fillna(0)
+
+    st.dataframe(forest)
     
 elif page == "Dashboards":
 
