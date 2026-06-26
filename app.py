@@ -292,7 +292,7 @@ elif page == "Landscape profiles":
     st.markdown("---")
     st.subheader("📈 Demographical Info")
     # Convert Tribal HH percentage
-    tribal = tribal.sort_values("% of tribal HH", ascending=False)
+    
     df["% of tribal HH"] = (
         df["% of tribal HH"]
         .astype(str)
@@ -309,7 +309,7 @@ elif page == "Landscape profiles":
             .reset_index()
     )
     import plotly.express as px
-
+    tribal = tribal.sort_values("% of tribal HH", ascending=False)
     fig = px.bar(
         tribal,
         x="% of tribal HH",
