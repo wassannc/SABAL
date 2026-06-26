@@ -239,6 +239,7 @@ elif page == "Landscape profiles":
     headers = all_data[0]
     rows = all_data[1:]
     df = pd.DataFrame(rows, columns=headers)
+    
     # Convert numeric columns
     numeric_cols = [
         "Total HH",
@@ -247,8 +248,8 @@ elif page == "Landscape profiles":
     ]
     for col in numeric_cols:
         df[col] = pd.to_numeric(df[col], errors="coerce").fillna(0)
-    # Demographical Information
-    demo = (
+    st.subheader("📈 Overview")
+        demo = (
         df.groupby("Landscape")
         .agg(
             Total_Villages=("Village", "nunique"),
@@ -258,10 +259,20 @@ elif page == "Landscape profiles":
         )
         .reset_index()
     )
-    st.subheader("📊 Demographical Information")
-    st.dataframe(demo, use_container_width=True)
+    total_landscapes = demo["Landscape"].nunique()
+    total_villages = demo["Total_Villages"].sum()
+    total_hhs = demo["Total_HHs"].sum()
+    total_shgs = demo["Total_SHGs"].sum()
+    total_landless = demo["Total_Landless_HH"].sum()
+    col1, col2, col3, col4, col5 = st.columns(5)
+    col1.metric("🏞 Landscapes", total_landscapes)
+    col2.metric("🏘 Villages", total_villages)
+    col3.metric("👨‍👩‍👧‍👦 Households", total_hhs)
+    col4.metric("👥 SHG Groups", total_shgs)
+    col5.metric("🏠 Landless HH", total_landless)
     
-    
+  
+
     
 elif page == "Dashboards":
 
