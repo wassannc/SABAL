@@ -21,27 +21,28 @@ def plot_bar_chart(data, x_col, title, colorscale):
 
     fig.update_traces(
         texttemplate="<b>%{text:.1f}%</b>",
-        textposition="outside",
+        textposition="auto",
         textfont=dict(
             color="black",
-            size=13
+            size=11
         )
     )
 
     fig.update_layout(
-        height=330,
-        title=dict(
-            x=0.5,
-            font=dict(size=17)
+        height=320,
+        margin=dict(
+            l=5,
+            r=60,
+            t=45,
+            b=5
         ),
-        font=dict(
-            color="black",
-            size=13
+        xaxis=dict(
+            automargin=True
         ),
-        yaxis_title="",
-        xaxis_title="",
-        coloraxis_showscale=False,
-        margin=dict(l=5, r=5, t=45, b=5)
+        yaxis=dict(
+            automargin=True
+        ),
+        coloraxis_showscale=False
     )
 
     st.plotly_chart(fig, use_container_width=True)
