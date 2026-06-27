@@ -29,11 +29,11 @@ def plot_bar_chart(data, x_col, title, colorscale):
     )
 
     fig.update_layout(
-        height=320,
+        height=280,
         margin=dict(
-            l=5,
+            l=30,
             r=60,
-            t=45,
+            t=40,
             b=5
         ),
         xaxis=dict(
