@@ -408,63 +408,19 @@ elif page == "Dashboards":
         )
         
         forest = forest.sort_values("Orchard %", ascending=False)
-        fig = px.bar(
+        plot_bar_chart(
             forest,
-            x="Orchard %",
-            y="Landscape",
-            orientation="h",
-            text="Orchard %",
-            title="Orchard Land (%) by Landscape",
-            color="Orchard %",
-            color_continuous_scale="Oranges"
+            "Orchard %",
+            "Orchard Land (%)",
+            "Oranges"
         )
-
-        fig.update_traces(
-            texttemplate="<b>%{text:.1f}%</b>",
-            textposition="outside",
-            textfont=dict(
-                color="black",
-                size=14
-            )
-        )
-
-        fig.update_layout(
-            height=450,
-            xaxis_title="Orchard Land (%)",
-            yaxis_title="",
-            coloraxis_showscale=False
-        )
-
-        st.plotly_chart(fig, use_container_width=True)
         forest = forest.sort_values("HH Intensified %", ascending=False)
-        fig = px.bar(
+        plot_bar_chart(
             forest,
-            x="HH Intensified %",
-            y="Landscape",
-            orientation="h",
-            text="HH Intensified %",
-            title="HH Intensified Orchards (%)",
-            color="HH Intensified %",
-            color_continuous_scale="Purples"
+            "HH Intensified %",
+            "HH Intensified Orchards (%)",
+            "Purples"
         )
-
-        fig.update_traces(
-            texttemplate="<b>%{text:.1f}%</b>",
-            textposition="outside",
-            textfont=dict(
-                color="black",
-                size=14
-            )
-        )
-
-        fig.update_layout(
-            height=450,
-            xaxis_title="HH Intensified (%)",
-            yaxis_title="",
-            coloraxis_showscale=False
-        )
-
-        st.plotly_chart(fig, use_container_width=True)
     
         st.markdown("---")
         st.subheader("🌾 Paddy & Mettu Lands")
@@ -490,63 +446,20 @@ elif page == "Dashboards":
 
         paddy = paddy.fillna(0)
         paddy = paddy.sort_values("Paddy NF %", ascending=False)
-        fig = px.bar(
+        plot_bar_chart(
             paddy,
-            x="Paddy NF %",
-            y="Landscape",
-            orientation="h",
-            text="Paddy NF %",
-            title="Paddy under Natural Farming (%)",
-            color="Paddy NF %",
-            color_continuous_scale="YlGn"
+            "Paddy NF %",
+            "Paddy under Natural Farming (%)",
+            "YlGn"
         )
-
-        fig.update_traces(
-            texttemplate="<b>%{text:.1f}%</b>",
-            textposition="outside",
-            textfont=dict(
-                color="black",
-                size=14
-            )
-        )
-
-        fig.update_layout(
-            height=450,
-            xaxis_title="HH Intensified (%)",
-            yaxis_title="",
-            coloraxis_showscale=False
-        )
-
-        st.plotly_chart(fig, use_container_width=True)
+        
         paddy = paddy.sort_values("Mettu NF %", ascending=False)
-        fig = px.bar(
+        plot_bar_chart(
             paddy,
-            x="Mettu NF %",
-            y="Landscape",
-            orientation="h",
-            text="Mettu NF %",
-            title="Mettu under Natural Farming (%)",
-            color="Mettu NF %",
-            color_continuous_scale="PuBuGn"
+            "Mettu NF %",
+            "Mettu under Natural Farming (%)",
+            "PuBuGn"
         )
-
-        fig.update_traces(
-            texttemplate="<b>%{text:.1f}%</b>",
-            textposition="outside",
-            textfont=dict(
-                color="black",
-                size=14
-            )
-        )
-
-        fig.update_layout(
-            height=450,
-            xaxis_title="Mettu under NF (%)",
-            yaxis_title="",
-            coloraxis_showscale=False
-        )
-
-        st.plotly_chart(fig, use_container_width=True)
 
         st.markdown("---")
         st.subheader("🏭 Micro Enterprises")
@@ -589,34 +502,12 @@ elif page == "Dashboards":
 
         micro = micro.fillna(0)
         micro = micro.sort_values("Micro %", ascending=False)
-        fig = px.bar(
+        plot_bar_chart(
             micro,
-            x="Micro %",
-            y="Landscape",
-            orientation="h",
-            text="Micro %",
-            title="% of HHs having Micro enterprises",
-            color="Micro %",
-            color_continuous_scale="Teal"
+            "Micro %",
+            "Micro Enterprises (%)",
+            "Teal"
         )
-
-        fig.update_traces(
-            texttemplate="<b>%{text:.1f}%</b>",
-            textposition="outside",
-            textfont=dict(
-                color="black",
-                size=14
-            )
-        )
-
-        fig.update_layout(
-            height=450,
-            xaxis_title="Micro Enterprises (%)",
-            yaxis_title="",
-            coloraxis_showscale=False
-        )
-
-        st.plotly_chart(fig, use_container_width=True)
 
     elif dashboard == "📈 Dashboards":
         # Dropdown
