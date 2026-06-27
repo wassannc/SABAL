@@ -342,10 +342,8 @@ elif page == "Dashboards":
         col4.metric("👥 SHG Groups", total_shgs)
         col5.metric("🏠 Landless HH", total_landless)
 
-        st.markdown("---")
-        st.subheader("📈 Demographical Info")
-        # Convert Tribal HH percentage
     
+        # Convert Tribal HH percentage
         df["% of tribal HH"] = (
             df["% of tribal HH"]
             .astype(str)
@@ -361,15 +359,8 @@ elif page == "Dashboards":
                 .mean()
                 .reset_index()
         )
-        import plotly.express as px
+        
         tribal = tribal.sort_values("% of tribal HH", ascending=False)
-        plot_bar_chart(
-            tribal,
-            "% of tribal HH",
-            "Tribal Households (%)",
-            "Viridis"
-        )
-
         forest = (
             df.groupby("Landscape")
               .agg(
@@ -400,12 +391,22 @@ elif page == "Dashboards":
 
         forest = forest.fillna(0)
         forest = forest.sort_values("Forest %", ascending=False)
-        plot_bar_chart(
-            forest,
-            "Forest %",
-            "Forest Land (%)",
-            "Greens"
-        )
+        st.subheader("📊 Demographical & Forest Analysis")
+        col1, col2 = st.columns(2)
+        with col1:
+            plot_bar_chart(
+                tribal,
+                "% of tribal HH",
+                "Tribal Households (%)",
+                "Viridis"
+            )
+        with col2:
+            plot_bar_chart(
+                forest,
+                "Forest %",
+                "Forest Land (%)",
+                "Greens"
+            )
         
         forest = forest.sort_values("Orchard %", ascending=False)
         plot_bar_chart(
