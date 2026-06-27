@@ -7,6 +7,7 @@ USERNAME = st.secrets["USERNAME"]
 PASSWORD = st.secrets["PASSWORD"]
 PROJECT_ID = st.secrets["PROJECT_ID"]
 
+@st.cache_data(ttl=600)
 def load_odk_data(form_id):
 
     url = f"{ODK_URL}/projects/{PROJECT_ID}/forms/{form_id}.svc/Submissions"
