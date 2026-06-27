@@ -29,23 +29,51 @@ def plot_bar_chart(data, x_col, title, colorscale):
     )
 
     fig.update_layout(
-        height=280,
-        margin=dict(
-            l=30,
-            r=60,
-            t=40,
-            b=5
-        ),
-        xaxis=dict(
-            automargin=True
-        ),
-        yaxis=dict(
-            automargin=True
-        ),
-        coloraxis_showscale=False
-    )
+    height=280,
 
-    st.plotly_chart(fig, use_container_width=True)
+    title=dict(
+        x=0.5,
+        font=dict(
+            size=15,
+            color="black"
+        )
+    ),
+
+    font=dict(
+        size=12,
+        color="black"
+    ),
+
+    xaxis=dict(
+        title="",
+        automargin=True,
+        tickfont=dict(
+            size=11,
+            color="black"
+        )
+    ),
+
+    yaxis=dict(
+        title="",
+        automargin=True,
+        tickfont=dict(
+            size=13,
+            color="black",
+            family="Arial Black"
+        )
+    ),
+
+    margin=dict(
+        l=70,
+        r=60,
+        t=45,
+        b=10
+    ),
+
+    coloraxis_showscale=False
+)
+
+st.plotly_chart(fig, use_container_width=True)
     
 def clean_landscape(series):
     return series.replace({
