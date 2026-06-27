@@ -409,19 +409,26 @@ elif page == "Dashboards":
                 "Greens"
             )
         
+        
+        st.markdown("---")
+        st.subheader("🌳 Common & Orchard Lands")
+        col1, col2 = st.columns(2)
+        with col1:
+            forest = forest.sort_values("Common %", ascending=False)
+            
+            plot_bar_chart(
+                forest,
+                "Common %",
+                "Common Land (%)",
+                "Blues"
+            )
+        with col2:
         forest = forest.sort_values("Orchard %", ascending=False)
         plot_bar_chart(
             forest,
             "Orchard %",
             "Orchard Land (%)",
             "Oranges"
-        )
-        forest = forest.sort_values("HH Intensified %", ascending=False)
-        plot_bar_chart(
-            forest,
-            "HH Intensified %",
-            "HH Intensified Orchards (%)",
-            "Purples"
         )
     
         st.markdown("---")
