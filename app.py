@@ -34,7 +34,7 @@ def plot_bar_chart(data, x_col, title, colorscale):
         title=dict(
             x=0.5,
             font=dict(
-                size=15,
+                size=11,
                 color="black"
             )
         ),
@@ -57,7 +57,7 @@ def plot_bar_chart(data, x_col, title, colorscale):
             title="",
             automargin=True,
             tickfont=dict(
-                size=13,
+                size=11,
                 color="black",
                 family="Arial Black"
             )
