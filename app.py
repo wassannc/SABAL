@@ -369,9 +369,6 @@ elif page == "Dashboards":
             "Tribal Households (%)",
             "Viridis"
         )
-            
-        st.markdown("---")
-        st.subheader("🌳 Forest & Common Lands")
 
         forest = (
             df.groupby("Landscape")
@@ -403,63 +400,13 @@ elif page == "Dashboards":
 
         forest = forest.fillna(0)
         forest = forest.sort_values("Forest %", ascending=False)
-        fig = px.bar(
+        plot_bar_chart(
             forest,
-            x="Forest %",
-            y="Landscape",
-            orientation="h",
-            text="Forest %",
-            title="Forest Land (%) by Landscape",
-            color="Forest %",
-            color_continuous_scale="Greens"
+            "Forest %",
+            "Forest Land (%)",
+            "Greens"
         )
-
-        fig.update_traces(
-            texttemplate="<b>%{text:.1f}%</b>",
-            textposition="outside",
-            textfont=dict(
-                color="black",
-                size=14
-            )
-        )
-
-        fig.update_layout(
-            height=450,
-            xaxis_title="Forest Land (%)",
-            yaxis_title="",
-            coloraxis_showscale=False
-        )
-
-        st.plotly_chart(fig, use_container_width=True)
-        forest = forest.sort_values("Common %", ascending=False)
-        fig = px.bar(
-            forest,
-            x="Common %",
-            y="Landscape",
-            orientation="h",
-            text="Common %",
-            title="Common Land (%) by Landscape",
-            color="Common %",
-            color_continuous_scale="Blues"
-        )
-
-        fig.update_traces(
-            texttemplate="<b>%{text:.1f}%</b>",
-            textposition="outside",
-            textfont=dict(
-                color="black",
-                size=14
-            )
-        )
-
-        fig.update_layout(
-            height=450,
-            xaxis_title="Common Land (%)",
-            yaxis_title="",
-            coloraxis_showscale=False
-        )
-
-        st.plotly_chart(fig, use_container_width=True)
+        
         forest = forest.sort_values("Orchard %", ascending=False)
         fig = px.bar(
             forest,
