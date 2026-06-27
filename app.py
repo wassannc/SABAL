@@ -363,35 +363,13 @@ elif page == "Dashboards":
         )
         import plotly.express as px
         tribal = tribal.sort_values("% of tribal HH", ascending=False)
-        fig = px.bar(
+        plot_bar_chart(
             tribal,
-            x="% of tribal HH",
-            y="Landscape",
-            orientation="h",
-            text="% of tribal HH",
-            title="Tribal Households (%) by Landscape",
-            color="% of tribal HH",
-            color_continuous_scale="Viridis"
+            "% of tribal HH",
+            "Tribal Households (%)",
+            "Viridis"
         )
-
-        fig.update_traces(
-            texttemplate="<b>%{text:.1f}%</b>",
-            textposition="outside",
-            textfont=dict(
-                color="black",
-                size=14
-            )
-        )
-
-        fig.update_layout(
-            height=450,
-            xaxis_title="Tribal Households (%)",
-            yaxis_title="",
-            coloraxis_showscale=False,
-            title_x=0.5
-        )
-
-        st.plotly_chart(fig, use_container_width=True)
+            
         st.markdown("---")
         st.subheader("🌳 Forest & Common Lands")
 
