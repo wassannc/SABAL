@@ -5,6 +5,47 @@ import pandas as pd
 from datetime import date
 from config import FORMS
 from utils import load_odk_data
+import plotly.express as px
+# ---------------- COMMON BAR CHART ---------------- #
+def plot_bar_chart(data, x_col, title, colorscale):
+    fig = px.bar(
+        data,
+        x=x_col,
+        y="Landscape",
+        orientation="h",
+        text=x_col,
+        title=title,
+        color=x_col,
+        color_continuous_scale=colorscale
+    )
+
+    fig.update_traces(
+        texttemplate="<b>%{text:.1f}%</b>",
+        textposition="outside",
+        textfont=dict(
+            color="black",
+            size=13
+        )
+    )
+
+    fig.update_layout(
+        height=330,
+        title=dict(
+            x=0.5,
+            font=dict(size=17)
+        ),
+        font=dict(
+            color="black",
+            size=13
+        ),
+        yaxis_title="",
+        xaxis_title="",
+        coloraxis_showscale=False,
+        margin=dict(l=5, r=5, t=45, b=5)
+    )
+
+    st.plotly_chart(fig, use_container_width=True)
+    
 def clean_landscape(series):
     return series.replace({
         "KG.Pudi": "KG Pudi",
