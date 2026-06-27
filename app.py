@@ -454,21 +454,25 @@ elif page == "Dashboards":
         )
 
         paddy = paddy.fillna(0)
-        paddy = paddy.sort_values("Paddy NF %", ascending=False)
-        plot_bar_chart(
-            paddy,
-            "Paddy NF %",
-            "Paddy under Natural Farming (%)",
-            "YlGn"
-        )
-        
-        paddy = paddy.sort_values("Mettu NF %", ascending=False)
-        plot_bar_chart(
-            paddy,
-            "Mettu NF %",
-            "Mettu under Natural Farming (%)",
-            "PuBuGn"
-        )
+        st.markdown("---")
+        st.subheader("🌾 Paddy & Mettu Lands")
+        col1, col2 = st.columns(2)
+        with col1:
+            paddy1 = paddy.sort_values("Paddy NF %", ascending=False)
+            plot_bar_chart(
+                paddy1,
+                "Paddy NF %",
+                "Paddy under Natural Farming (%)",
+                "YlGn"
+            )
+        with col2:
+            paddy2 = paddy.sort_values("Mettu NF %", ascending=False)
+            plot_bar_chart(
+                paddy2,
+                "Mettu NF %",
+                "Mettu under Natural Farming (%)",
+                "PuBuGn"
+            )
 
         st.markdown("---")
         st.subheader("🏭 Micro Enterprises")
