@@ -423,13 +423,13 @@ elif page == "Dashboards":
                 "Blues"
             )
         with col2:
-        forest = forest.sort_values("Orchard %", ascending=False)
-        plot_bar_chart(
-            forest,
-            "Orchard %",
-            "Orchard Land (%)",
-            "Oranges"
-        )
+            forest = forest.sort_values("Orchard %", ascending=False)
+            plot_bar_chart(
+                forest,
+                "Orchard %",
+                "Orchard Land (%)",
+                "Oranges"
+            )
     
         st.markdown("---")
         st.subheader("🌾 Paddy & Mettu Lands")
