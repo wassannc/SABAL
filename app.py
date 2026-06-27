@@ -431,8 +431,7 @@ elif page == "Dashboards":
                 "Oranges"
             )
     
-        st.markdown("---")
-        st.subheader("🌾 Paddy & Mettu Lands")
+
         paddy = (
             df.groupby("Landscape")
               .agg(
