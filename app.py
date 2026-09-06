@@ -7,7 +7,7 @@ from config import FORMS
 from utils import load_odk_data
 import plotly.express as px
 # ---------------- COMMON BAR CHART ---------------- #
-def plot_bar_chart(data, x_col, title, colorscale):
+def plot_bar_chart(data, x_col, title, colorscale, show_percent=True):
     fig = px.bar(
         data,
         x=x_col,
@@ -20,7 +20,7 @@ def plot_bar_chart(data, x_col, title, colorscale):
     )
 
     fig.update_traces(
-        texttemplate="<b>%{text:.1f}%</b>",
+        texttemplate="<b>%{text:.1f}%</b>" if show_percent else "<b>%{text:.0f}</b>",
         textposition="auto",
         textfont=dict(
             color="black",
@@ -543,7 +543,8 @@ elif page == "Dashboards":
             micro,
             "Total Micro",
             "Number of Micro Enterprises",
-            "Teal"
+            "Teal",
+            show_percent=False
         )
 
     elif dashboard == "📈 Dashboards":
