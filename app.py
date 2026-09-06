@@ -535,17 +535,14 @@ elif page == "Dashboards":
             micro["Seed"] +
             micro["Feed"]
         )
-        micro["Micro %"] = (
-            micro["Total Micro"] /
-            micro["Total_HH"] * 100
-        )
-
         micro = micro.fillna(0)
-        micro = micro.sort_values("Micro %", ascending=False)
+
+        micro = micro.sort_values("Total Micro", ascending=False)
+        
         plot_bar_chart(
             micro,
-            "Micro %",
-            "Micro Enterprises (%)",
+            "Total Micro",
+            "Number of Micro Enterprises",
             "Teal"
         )
 
