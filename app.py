@@ -350,7 +350,7 @@ if page == "MIS-Status":
                           
 elif page == "Models & Trails":
 
-    st.title("Models & Trails")
+    st.title("🚜 Models & Trails")
 
     # Load Beneficiaries data
     df_beneficiaries = load_beneficiaries_data()
@@ -360,24 +360,211 @@ elif page == "Models & Trails":
 
     else:
 
-        # Apply Landscape filter
+        # --------------------------------------------------
+        # LANDSCAPE FILTER
+        # --------------------------------------------------
+
         if selected_landscape != "All" and "Landscape" in df_beneficiaries.columns:
             df_beneficiaries = df_beneficiaries[
                 df_beneficiaries["Landscape"] == selected_landscape
             ]
 
-        # Summary
-        st.metric(
-            "Total Pilot Beneficiaries",
-            len(df_beneficiaries)
+        # --------------------------------------------------
+        # CLEAN NUMERIC FIELDS
+        # --------------------------------------------------
+
+        df_beneficiaries["Age of the activity- Months"] = pd.to_numeric(
+            df_beneficiaries["Age of the activity- Months"],
+            errors="coerce"
         )
 
-        st.subheader("📋 Beneficiary Details")
+        df_beneficiaries["Total cost (INR.)"] = pd.to_numeric(
+            df_beneficiaries["Total cost (INR.)"],
+            errors="coerce"
+        ).fillna(0)
+
+        # --------------------------------------------------
+        # SUMMARY
+        # --------------------------------------------------
+
+        total_beneficiaries = len(df_beneficiaries)
+
+        total_landscapes = (
+            df_beneficiaries["Landscape"].nunique()
+            if "Landscape" in df_beneficiaries.columns
+            else 0
+        )
+
+        total_models = (
+            df_beneficiaries["Sub activity"].nunique()
+            if "Sub activity" in df_beneficiaries.columns
+            else 0
+        )
+
+        avg_age = (
+            df_beneficiaries["Age of the activity- Months"].mean()
+            if "Age of the activity- Months" in df_beneficiaries.columns
+            else 0
+        )
+
+        col1, col2, col3, col4 = st.columns(4)
+
+        col1.metric(
+            "Pilot Beneficiaries",
+            total_beneficiaries
+        )
+
+        col2.metric(
+            "Pilot Models",
+            total_models
+        )
+
+        col3.metric(
+            "Landscapes",
+            total_landscapes
+        )
+
+        col4.metric(
+            "Avg. Activity Age",
+            f"{avg_age:.1f} months"
+        )
+
+        # ==================================================
+        # 1. LANDSCAPE-WISE BENEFICIARIES
+        # ==================================================
+
+        st.markdown("---")
+        st.subheader("👥 Landscape-wise Pilot Beneficiaries")
+
+        landscape_summary = (
+            df_beneficiaries
+            .groupby("Landscape")
+            .size()
+            .reset_index(name="Beneficiaries")
+            .sort_values("Beneficiaries", ascending=False)
+        )
 
         st.dataframe(
-            df_beneficiaries,
+            landscape_summary,
             use_container_width=True,
-            height=500
+            hide_index=True
+        )
+
+        # ==================================================
+        # 2. LANDSCAPE × MODEL
+        # ==================================================
+
+        st.markdown("---")
+        st.subheader("🏭 Landscape-wise Pilot Models")
+
+        landscape_model = pd.pivot_table(
+            df_beneficiaries,
+            index="Landscape",
+            columns="Sub activity",
+            values="S.no",
+            aggfunc="count",
+            fill_value=0
+        ).reset_index()
+
+        st.dataframe(
+            landscape_model,
+            use_container_width=True,
+            hide_index=True
+        )
+
+        # ==================================================
+        # 3. MODEL-WISE BENEFICIARIES
+        # ==================================================
+
+        st.markdown("---")
+        st.subheader("📊 Model-wise Beneficiaries")
+
+        model_summary = (
+            df_beneficiaries
+            .groupby(["Type of activity", "Sub activity"])
+            .size()
+            .reset_index(name="Beneficiaries")
+            .sort_values("Beneficiaries", ascending=False)
+        )
+
+        st.dataframe(
+            model_summary,
+            use_container_width=True,
+            hide_index=True
+        )
+
+        # ==================================================
+        # 4. STATUS OF SCALE UP
+        # ==================================================
+
+        st.markdown("---")
+        st.subheader("📈 Status of Scale Up")
+
+        scaleup_summary = (
+            df_beneficiaries
+            .groupby("Status of scale up")
+            .size()
+            .reset_index(name="Beneficiaries")
+            .sort_values("Beneficiaries", ascending=False)
+        )
+
+        st.dataframe(
+            scaleup_summary,
+            use_container_width=True,
+            hide_index=True
+        )
+
+        # ==================================================
+        # 5. STAGE OF ACTIVITY
+        # ==================================================
+
+        st.markdown("---")
+        st.subheader("🚀 Stage of Pilot Activities")
+
+        stage_summary = (
+            df_beneficiaries
+            .groupby("Stage of the activity")
+            .size()
+            .reset_index(name="Beneficiaries")
+            .sort_values("Beneficiaries", ascending=False)
+        )
+
+        st.dataframe(
+            stage_summary,
+            use_container_width=True,
+            hide_index=True
+        )
+
+        # ==================================================
+        # 6. ACTIVITY AGE
+        # ==================================================
+
+        st.markdown("---")
+        st.subheader("⏳ Activity Age by Pilot Model")
+
+        age_summary = (
+            df_beneficiaries
+            .groupby("Sub activity")
+            .agg(
+                Beneficiaries=("S.no", "count"),
+                Avg_Age_Months=("Age of the activity- Months", "mean")
+            )
+            .reset_index()
+        )
+
+        age_summary["Avg_Age_Months"] = (
+            age_summary["Avg_Age_Months"].round(1)
+        )
+
+        age_summary = age_summary.sort_values(
+            "Avg_Age_Months",
+            ascending=False
+        )
+
+        st.dataframe(
+            age_summary,
+            use_container_width=True,
+            hide_index=True
         )
     
 elif page == "Dashboards":
