@@ -98,6 +98,35 @@ def push_to_google_sheet(df):
 
     sheet = client.open("Reminder_SABAL").worksheet("Data")
 
+    @st.cache_data(ttl=600)
+    def load_beneficiaries_data():
+    
+        scope = [
+            "https://www.googleapis.com/auth/spreadsheets",
+            "https://www.googleapis.com/auth/drive"
+        ]
+    
+        creds = Credentials.from_service_account_info(
+            st.secrets["gcp_service_account"],
+            scopes=scope
+        )
+    
+        client = gspread.authorize(creds)
+    
+        worksheet = client.open("Reminder_SABAL").worksheet("Beneficiaries")
+    
+        all_data = worksheet.get_all_values()
+    
+        if not all_data:
+            return pd.DataFrame()
+    
+        headers = all_data[0]
+        rows = all_data[1:]
+    
+        df = pd.DataFrame(rows, columns=headers)
+    
+        return df
+
     # 🔥 SAFE CONVERSION
     df = df.fillna("").astype(str)
 
@@ -120,7 +149,7 @@ st.sidebar.title("Menu")
 
 main_section = st.sidebar.radio(
     "Select Section",
-    ["MIS-Status", "MIS-Reports", "Dashboards"]
+    ["MIS-Status", "MIS-Reports", "Models & Trails", "Dashboards"]
 )
 
 if main_section == "MIS-Reports":
