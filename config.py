@@ -8,7 +8,7 @@ FORMS = {
     "1. FarmerRegister-NF": {
         "form_id": "FarmerRegister_NF",
         "columns": ["plot_reg.date","plot_reg.landscape","plot_reg.gp","plot_reg.village","plot_reg.farmer_name","plot_reg.spouse","plot_reg.season","plot_reg.crop_model","plot_reg.main_crop","plot_reg.sowing_date"],
-        "columns_labels": ["plot_reg.date": "Date","plot_reg.landscape": "Landscape","plot_reg.gp": "Panchayath","plot_reg.village": "Village","plot_reg.farmer_name": "Farmer name","plot_reg.spouse": "Spouse","plot_reg.season": "Season","plot_reg.crop_model": "Crop model","plot_reg.main_crop": "Main crop","plot_reg.sowing_date": "Sowing date"],
+        "column_labels": ["plot_reg.date": "Date","plot_reg.landscape": "Landscape","plot_reg.gp": "Panchayath","plot_reg.village": "Village","plot_reg.farmer_name": "Farmer name","plot_reg.spouse": "Spouse","plot_reg.season": "Season","plot_reg.crop_model": "Crop model","plot_reg.main_crop": "Main crop","plot_reg.sowing_date": "Sowing date"],
         "landscape_col": "plot_reg.landscape"
     },
     "Activities": {
