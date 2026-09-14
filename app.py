@@ -321,7 +321,38 @@ if page == "MIS-Status":
 
                 else:
                     st.warning(f"{landscape_col} not found")
-                    
+                          
+elif page == "Models & Trails":
+
+    st.title("🚜 Models & Trails")
+
+    # Load Beneficiaries data
+    df_beneficiaries = load_beneficiaries_data()
+
+    if df_beneficiaries.empty:
+        st.warning("No data found in Beneficiaries sheet.")
+
+    else:
+
+        # Apply Landscape filter
+        if selected_landscape != "All" and "Landscape" in df_beneficiaries.columns:
+            df_beneficiaries = df_beneficiaries[
+                df_beneficiaries["Landscape"] == selected_landscape
+            ]
+
+        # Summary
+        st.metric(
+            "Total Pilot Beneficiaries",
+            len(df_beneficiaries)
+        )
+
+        st.subheader("📋 Beneficiary Details")
+
+        st.dataframe(
+            df_beneficiaries,
+            use_container_width=True,
+            height=500
+        )
     
 elif page == "Dashboards":
 
