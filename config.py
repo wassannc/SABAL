@@ -7,8 +7,8 @@ FORMS = {
     }, 
     "1. FarmerRegister-NF": {
         "form_id": "FarmerRegister_NF",
-        "columns": ["plot_reg.date","plot_reg.landscape","plot_reg.gp","plot_reg.village","plot_reg.farmer_name","plot_reg.spouse","plot_reg.season","plot_reg.crop_model","plot_reg.main_crop","plot_reg.sowing_date"],
-        "column_labels": {"plot_reg.date": "Date","plot_reg.landscape": "Landscape","plot_reg.gp": "Panchayath","plot_reg.village": "Village","plot_reg.farmer_name": "Farmer name","plot_reg.spouse": "Spouse","plot_reg.season": "Season","plot_reg.crop_model": "Crop model","plot_reg.main_crop": "Main crop","plot_reg.sowing_date": "Sowing date"},
+        "columns": ["plot_reg.date","plot_reg.landscape","plot_reg.gp","plot_reg.village","plot_reg.farmer_name","plot_reg.spouse","plot_reg.season","plot_reg.crop_model","plot_reg.main_crop","plot_reg.sowing_date","plot_reg-plot_ext","plot_reg-plot_polygon","plot_reg-crop_model","plot_reg-main_crop","plot_reg-main_crop_others","plot_reg-inter_crops","plot_reg-intercrops_others","plot_reg-seed_treatment","plot_reg-border_crops_done"],
+        "column_labels": {"plot_reg.date": "Date","plot_reg.landscape": "Landscape","plot_reg.gp": "Panchayath","plot_reg.village": "Village","plot_reg.farmer_name": "Farmer name","plot_reg.spouse": "Spouse","plot_reg.season": "Season","plot_reg.crop_model": "Crop model","plot_reg.main_crop": "Main crop","plot_reg.sowing_date": "Sowing date","plot_reg-plot_ext": "Plot extent-acrs","plot_reg-plot_polygon": "GPS Location","plot_reg-crop_model": "Model crop name","plot_reg-main_crop": "Main crop","plot_reg-main_crop_others": "Main crop details","plot_reg-inter_crops": "Inter crops","plot_reg-intercrops_others": "Intercrops details","plot_reg-seed_treatment": "Seed treatement done?","plot_reg-border_crops_done": "Borader crops followed?"},
         "landscape_col": "plot_reg.landscape"
     },
     "Activities": {
