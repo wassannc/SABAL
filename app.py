@@ -350,7 +350,7 @@ if page == "MIS-Status":
                           
 elif page == "Models & Trails":
 
-    st.title("🚜 Models & Trails")
+    st.title("Models & Trails")
 
     # Load Beneficiaries data
     df_beneficiaries = load_beneficiaries_data()
