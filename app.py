@@ -449,6 +449,48 @@ elif page == "Models & Trails":
             use_container_width=True,
             hide_index=True
         )
+        # ==================================================
+        # 3A. MODEL-WISE GENDER
+        # ==================================================
+        
+        st.markdown("---")
+        st.subheader("👩‍🌾 Model-wise Gender Distribution")
+        
+        gender_model = (
+            df_beneficiaries
+            .groupby(["Sub activity", "Gender"])
+            .size()
+            .reset_index(name="Beneficiaries")
+        )
+        
+        # Create grouped horizontal bar chart
+        fig_gender = px.bar(
+            gender_model,
+            x="Beneficiaries",
+            y="Sub activity",
+            color="Gender",
+            orientation="h",
+            barmode="group",
+            text="Beneficiaries"
+        )
+        
+        fig_gender.update_traces(
+            texttemplate="%{text}",
+            textposition="auto"
+        )
+        
+        fig_gender.update_layout(
+            height=max(350, len(gender_model["Sub activity"].unique()) * 45),
+            xaxis_title="Number of Beneficiaries",
+            yaxis_title="Pilot Model",
+            legend_title="Gender",
+            margin=dict(l=20, r=20, t=20, b=20)
+        )
+        
+        st.plotly_chart(
+            fig_gender,
+            use_container_width=True
+        )
 
         # ==================================================
         # 2. LANDSCAPE × MODEL
