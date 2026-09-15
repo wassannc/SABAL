@@ -449,27 +449,26 @@ elif page == "Models & Trails":
             use_container_width=True,
             hide_index=True
         )
+       
         # ==================================================
-        # 3A. MODEL-WISE GENDER
+        # 3A. ACTIVITY-WISE GENDER
         # ==================================================
         
         st.markdown("---")
-        st.subheader("👩‍🌾 Model-wise Gender Distribution")
+        st.subheader("👩‍🌾 Activity-wise Gender Distribution")
         
-        gender_model = (
+        gender_activity = (
             df_beneficiaries
-            .groupby(["Sub activity", "Gender"])
+            .groupby(["Type of activity", "Gender"])
             .size()
             .reset_index(name="Beneficiaries")
         )
         
-        # Create grouped horizontal bar chart
         fig_gender = px.bar(
-            gender_model,
-            x="Beneficiaries",
-            y="Sub activity",
+            gender_activity,
+            x="Type of activity",
+            y="Beneficiaries",
             color="Gender",
-            orientation="h",
             barmode="group",
             text="Beneficiaries"
         )
@@ -480,9 +479,9 @@ elif page == "Models & Trails":
         )
         
         fig_gender.update_layout(
-            height=max(350, len(gender_model["Sub activity"].unique()) * 45),
-            xaxis_title="Number of Beneficiaries",
-            yaxis_title="Pilot Model",
+            height=400,
+            xaxis_title="Type of Activity",
+            yaxis_title="Number of Beneficiaries",
             legend_title="Gender",
             margin=dict(l=20, r=20, t=20, b=20)
         )
