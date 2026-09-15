@@ -535,24 +535,74 @@ elif page == "Models & Trails":
         )
 
         # ==================================================
-        # 4. STATUS OF SCALE UP
+        # 4. PILOT MODELS - STATUS OF SCALE UP
         # ==================================================
-
+        
         st.markdown("---")
-        st.subheader("📈 Status of Scale Up")
-
+        st.subheader("📈 Pilot Models – Status of Scale Up")
+        
+        # Keep only one record for each unique model + status
+        unique_models = (
+            df_beneficiaries[
+                ["Sub activity", "Status of scale up"]
+            ]
+            .dropna()
+            .drop_duplicates()
+        )
+        
+        # Count unique models by scale-up status
         scaleup_summary = (
-            df_beneficiaries
+            unique_models
             .groupby("Status of scale up")
             .size()
-            .reset_index(name="Beneficiaries")
-            .sort_values("Beneficiaries", ascending=False)
+            .reset_index(name="Models")
         )
-
-        st.dataframe(
+        
+        # Calculate percentage
+        total_models = scaleup_summary["Models"].sum()
+        
+        scaleup_summary["Percentage"] = (
+            scaleup_summary["Models"] / total_models * 100
+        ).round(1)
+        
+        # Create label for graph
+        scaleup_summary["Label"] = (
+            scaleup_summary["Status of scale up"]
+            + " – "
+            + scaleup_summary["Models"].astype(str)
+            + " models ("
+            + scaleup_summary["Percentage"].astype(str)
+            + "%)"
+        )
+        
+        # Donut chart
+        fig_scaleup = px.pie(
             scaleup_summary,
-            use_container_width=True,
-            hide_index=True
+            names="Status of scale up",
+            values="Models",
+            hole=0.45
+        )
+        
+        fig_scaleup.update_traces(
+            text=scaleup_summary["Label"],
+            textinfo="text",
+            hovertemplate=(
+                "<b>%{label}</b><br>"
+                "Models: %{value}<br>"
+                "Percentage: %{percent}"
+                "<extra></extra>"
+            )
+        )
+        
+        fig_scaleup.update_layout(
+            height=400,
+            showlegend=True,
+            margin=dict(l=20, r=20, t=20, b=20)
+        )
+        
+        st.plotly_chart(
+            fig_scaleup,
+            use_container_width=True
         )
 
         # ==================================================
