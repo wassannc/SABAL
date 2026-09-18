@@ -6,6 +6,7 @@ from datetime import date
 from config import FORMS
 from utils import load_odk_data
 import plotly.express as px
+
 # ---------------- COMMON BAR CHART ---------------- #
 def plot_bar_chart(data, x_col, title, colorscale, show_percent=True):
     fig = px.bar(
@@ -532,6 +533,44 @@ elif page == "Models & Trails":
             model_summary,
             use_container_width=True,
             hide_index=True
+        )
+
+        # ==================================================
+        # 3B. TYPE OF ACTIVITY - TOTAL BENEFICIARIES-Bar chart
+        # ==================================================
+        
+        st.subheader("📊 Type of Activity – Total Beneficiaries")
+        
+        activity_summary = (
+            df_beneficiaries
+            .groupby("Type of activity")
+            .size()
+            .reset_index(name="Beneficiaries")
+            .sort_values("Beneficiaries", ascending=False)
+        )
+        
+        fig_activity = px.bar(
+            activity_summary,
+            x="Type of activity",
+            y="Beneficiaries",
+            text="Beneficiaries"
+        )
+        
+        fig_activity.update_traces(
+            texttemplate="%{text}",
+            textposition="outside"
+        )
+        
+        fig_activity.update_layout(
+            height=400,
+            xaxis_title="Type of Activity",
+            yaxis_title="Total Beneficiaries",
+            margin=dict(l=20, r=20, t=30, b=20)
+        )
+        
+        st.plotly_chart(
+            fig_activity,
+            use_container_width=True
         )
 
         # ==================================================
