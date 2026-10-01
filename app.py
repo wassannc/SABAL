@@ -981,11 +981,11 @@ elif page == "Dashboards":
         scrolling=True
     ) 
         
-elif dashboard == "E-PRA Map":
-
-    st.title("🗺️ E-PRA Map")
-
-    st.info("E-PRA plot-level map is being loaded...")
+    elif dashboard == "E-PRA Map":
+    
+        st.title("🗺️ E-PRA Map")
+    
+        st.info("E-PRA plot-level map is being loaded...")
     
 elif page in FORMS:
     st.title(f"📥 {page}")
