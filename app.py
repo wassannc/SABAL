@@ -1190,12 +1190,17 @@ elif page == "Dashboards":
         
                 has_epra = plot_id in epra_lookup
         
+                # -----------------------------------------------------
+                # Check whether E-PRA data exists
+                # -----------------------------------------------------
+                
+                has_epra = plot_id in epra_lookup
+                
                 if has_epra:
-                    fill_color = "#4CAF50"
                     status = "E-PRA data available"
                 else:
-                    fill_color = "#BDBDBD"
                     status = "E-PRA data not available"
+                    fill_color = "#BDBDBD"
         
                 # -----------------------------------------------------
                 # Popup
