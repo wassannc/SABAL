@@ -1,6 +1,8 @@
 import streamlit as st
 import requests
 import pandas as pd
+import gspread
+from google.oauth2.service_account import Credentials
 
 ODK_URL = st.secrets["ODK_URL"]
 USERNAME = st.secrets["USERNAME"]
@@ -29,15 +31,10 @@ def load_odk_data(form_id):
     df = pd.json_normalize(data["value"])
 
     return df
-# ---------------- GOOGLE SHEET ----------------
-
-import gspread
-from google.oauth2.service_account import Credentials
-
-SHEET_ID = "YOUR_EXISTING_GOOGLE_SHEET_ID"
+# ---------------- E-PRA GOOGLE SHEET ----------------
 
 @st.cache_data(ttl=600)
-def load_google_sheet(sheet_name):
+def load_epra_data():
 
     scope = [
         "https://www.googleapis.com/auth/spreadsheets",
@@ -45,15 +42,22 @@ def load_google_sheet(sheet_name):
     ]
 
     creds = Credentials.from_service_account_info(
-        st.secrets["gcp"],
+        st.secrets["gcp_service_account"],
         scopes=scope
     )
 
     client = gspread.authorize(creds)
 
-    spreadsheet = client.open_by_key(SHEET_ID)
-    worksheet = spreadsheet.worksheet(sheet_name)
+    worksheet = client.open("Reminder_SABAL").worksheet("ePRA")
 
-    data = worksheet.get_all_records()
+    all_data = worksheet.get_all_values()
 
-    return pd.DataFrame(data)
+    if not all_data:
+        return pd.DataFrame()
+
+    headers = all_data[0]
+    rows = all_data[1:]
+
+    df = pd.DataFrame(rows, columns=headers)
+
+    return df
