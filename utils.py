@@ -31,8 +31,7 @@ def load_odk_data(form_id):
     df = pd.json_normalize(data["value"])
 
     return df
-# ---------------- E-PRA GOOGLE SHEET ----------------
-
+    
 @st.cache_data(ttl=600)
 def load_epra_data():
 
