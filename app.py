@@ -1119,7 +1119,18 @@ elif page == "Dashboards":
             # ---------------------------------------------------------
             # Add GeoJSON plots
             # ---------------------------------------------------------
-        
+            st.write("Land use values in E-PRA:")
+            st.write(
+                sorted(
+                    epra_df["land_use"]
+                    .dropna()
+                    .astype(str)
+                    .str.strip()
+                    .str.lower()
+                    .unique()
+                    .tolist()
+                )
+            )
             for feature in geojson_data["features"]:
         
                 properties = feature.get("properties", {})
