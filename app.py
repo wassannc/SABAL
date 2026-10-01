@@ -984,7 +984,7 @@ elif page == "Dashboards":
         scrolling=True
     ) 
         
-    elif dashboard == "E-PRA Map":
+    elif dashboard == "🗺️ E-PRA Map":
 
         st.title("🗺️ E-PRA Map")
     
