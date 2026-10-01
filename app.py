@@ -982,10 +982,42 @@ elif page == "Dashboards":
     ) 
         
     elif dashboard == "E-PRA Map":
-    
+
         st.title("🗺️ E-PRA Map")
     
-        st.info("E-PRA plot-level map is being loaded...")
+        # ---------------- E-PRA GOOGLE SHEET ----------------
+    
+        scope = [
+            "https://www.googleapis.com/auth/spreadsheets",
+            "https://www.googleapis.com/auth/drive"
+        ]
+    
+        creds = Credentials.from_service_account_info(
+            st.secrets["gcp_service_account"],
+            scopes=scope
+        )
+    
+        client = gspread.authorize(creds)
+    
+        worksheet = client.open("Reminder_SABAL").worksheet("ePRA")
+    
+        all_data = worksheet.get_all_values()
+    
+        if not all_data:
+            st.warning("No E-PRA data found.")
+        else:
+    
+            headers = all_data[0]
+            rows = all_data[1:]
+    
+            epra_df = pd.DataFrame(rows, columns=headers)
+    
+            st.success(f"E-PRA data loaded: {len(epra_df)} plots")
+    
+            st.dataframe(
+                epra_df,
+                use_container_width=True
+            )
     
 elif page in FORMS:
     st.title(f"📥 {page}")
