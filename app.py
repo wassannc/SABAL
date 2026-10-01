@@ -1043,6 +1043,186 @@ elif page == "Dashboards":
         
             st.write("Sample GeoJSON Plot IDs:")
             st.write(geojson_plot_ids[:10])
+
+            
+            # =========================================================
+            # E-PRA INTERACTIVE MAP
+            # =========================================================
+        
+            st.subheader("🗺️ Plot-level E-PRA Map")
+        
+            # ---------------------------------------------------------
+            # Prepare Google Sheet data
+            # ---------------------------------------------------------
+        
+            epra_map_df = epra_df.copy()
+        
+            epra_map_df["Plot id"] = (
+                epra_map_df["Plot id"]
+                .astype(str)
+                .str.strip()
+            )
+        
+            # Create lookup using Plot ID
+            epra_lookup = epra_map_df.set_index("Plot id").to_dict(
+                orient="index"
+            )
+        
+            # ---------------------------------------------------------
+            # Create map
+            # ---------------------------------------------------------
+        
+            m = folium.Map(
+                location=[18.3, 83.0],
+                zoom_start=14,
+                control_scale=True
+            )
+        
+            # ---------------------------------------------------------
+            # Add GeoJSON plots
+            # ---------------------------------------------------------
+        
+            for feature in geojson_data["features"]:
+        
+                properties = feature.get("properties", {})
+        
+                plot_id = properties.get("Plot id")
+        
+                if plot_id is None:
+                    continue
+        
+                plot_id = str(plot_id).strip()
+        
+                # Get E-PRA information
+                plot_data = epra_lookup.get(plot_id, {})
+        
+                # -----------------------------------------------------
+                # Values
+                # -----------------------------------------------------
+        
+                main_crop = plot_data.get(
+                    "main_crop", "—"
+                )
+        
+                kharif_intercrop = plot_data.get(
+                    "intercrops_kharif", "—"
+                )
+        
+                proposed_practice = plot_data.get(
+                    "proposed_practice", "—"
+                )
+        
+                rabi_crops = plot_data.get(
+                    "rabi_crops", "—"
+                )
+        
+                soil_type = plot_data.get(
+                    "soil_type", "—"
+                )
+        
+                soil_health = plot_data.get(
+                    "soil_health", "—"
+                )
+        
+                land_use = plot_data.get(
+                    "land_use", "—"
+                )
+        
+                orchard = plot_data.get(
+                    "orchard", "—"
+                )
+        
+                farming_type = plot_data.get(
+                    "farming_type", "—"
+                )
+        
+                proposed_work = plot_data.get(
+                    "proposed_work", "—"
+                )
+        
+                # -----------------------------------------------------
+                # Check whether E-PRA data exists
+                # -----------------------------------------------------
+        
+                has_epra = plot_id in epra_lookup
+        
+                if has_epra:
+                    fill_color = "#4CAF50"
+                    status = "E-PRA data available"
+                else:
+                    fill_color = "#BDBDBD"
+                    status = "E-PRA data not available"
+        
+                # -----------------------------------------------------
+                # Popup
+                # -----------------------------------------------------
+        
+                popup_html = f"""
+                <div style="width:320px">
+        
+                <h4 style="margin-bottom:8px;">
+                    Plot ID: {plot_id}
+                </h4>
+        
+                <b>Status:</b> {status}<br><br>
+        
+                <b>Main crop:</b> {main_crop}<br>
+        
+                <b>Kharif intercrop:</b> {kharif_intercrop}<br>
+        
+                <b>Proposed practice:</b> {proposed_practice}<br>
+        
+                <b>Rabi crops:</b> {rabi_crops}<br>
+        
+                <b>Soil type:</b> {soil_type}<br>
+        
+                <b>Soil health:</b> {soil_health}<br>
+        
+                <b>Land use:</b> {land_use}<br>
+        
+                <b>Orchard:</b> {orchard}<br>
+        
+                <b>Farming type:</b> {farming_type}<br>
+        
+                <b>Proposed work:</b> {proposed_work}
+        
+                </div>
+                """
+        
+                popup = folium.Popup(
+                    popup_html,
+                    max_width=400
+                )
+        
+                # -----------------------------------------------------
+                # Add polygon
+                # -----------------------------------------------------
+        
+                folium.GeoJson(
+                    feature,
+                    style_function=lambda feature,
+                        color=fill_color: {
+                            "fillColor": color,
+                            "color": "#333333",
+                            "weight": 1,
+                            "fillOpacity": 0.55
+                        },
+                    tooltip=folium.Tooltip(
+                        f"Plot ID: {plot_id}"
+                    ),
+                    popup=popup
+                ).add_to(m)
+        
+            # ---------------------------------------------------------
+            # Display map
+            # ---------------------------------------------------------
+        
+            st_folium(
+                m,
+                width=None,
+                height=700,
+                returned_objects=[]
+            )
     
 elif page in FORMS:
     st.title(f"📥 {page}")
