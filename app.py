@@ -7,6 +7,8 @@ from config import FORMS
 from utils import load_odk_data, load_epra_data
 import plotly.express as px
 import json
+import folium
+from streamlit_folium import st_folium
 
 # ---------------- COMMON BAR CHART ---------------- #
 def plot_bar_chart(data, x_col, title, colorscale, show_percent=True):
