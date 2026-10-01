@@ -708,7 +708,7 @@ elif page == "Dashboards":
         [
             "📊 Landscape Profiles",
             "📈 Dashboards",
-            "E-PRA Map"
+            "🗺️ E-PRA Map"
         ]
     )
        
