@@ -1129,6 +1129,7 @@ elif page == "Dashboards":
                     continue
         
                 plot_id = str(plot_id).strip()
+                plot_data = epra_lookup.get(plot_id, {})
 
                 # Get land use from E-PRA data
                 land_use = plot_data.get("land_use", "").strip().lower()
@@ -1138,9 +1139,6 @@ elif page == "Dashboards":
                     land_use,
                     "#BDBDBD"
                 )
-        
-                # Get E-PRA information
-                plot_data = epra_lookup.get(plot_id, {})
         
                 # -----------------------------------------------------
                 # Values
