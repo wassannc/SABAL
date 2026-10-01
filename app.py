@@ -6,6 +6,7 @@ from datetime import date
 from config import FORMS
 from utils import load_odk_data, load_epra_data
 import plotly.express as px
+import json
 
 # ---------------- COMMON BAR CHART ---------------- #
 def plot_bar_chart(data, x_col, title, colorscale, show_percent=True):
@@ -1018,6 +1019,28 @@ elif page == "Dashboards":
                 epra_df,
                 use_container_width=True
             )
+            
+            # ---------------- GEOJSON ----------------
+            geojson_path = "data/G Nittaput.geojson"
+        
+            with open(geojson_path, "r", encoding="utf-8") as f:
+                geojson_data = json.load(f)
+        
+            st.success(
+                f"GeoJSON loaded: {len(geojson_data['features'])} plots"
+            )
+        
+            # Show first few GeoJSON Plot IDs
+            geojson_plot_ids = []
+        
+            for feature in geojson_data["features"]:
+                properties = feature.get("properties", {})
+                geojson_plot_ids.append(
+                    properties.get("Plot id")
+                )
+        
+            st.write("Sample GeoJSON Plot IDs:")
+            st.write(geojson_plot_ids[:10])
     
 elif page in FORMS:
     st.title(f"📥 {page}")
