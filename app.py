@@ -1309,7 +1309,82 @@ elif page == "Dashboards":
             
             # Layer control
             folium.LayerControl().add_to(m)
+
+            # =========================================================
+            # LAND USE LEGEND
+            # =========================================================
             
+            legend_html = """
+            <div style="
+                position: fixed;
+                bottom: 30px;
+                left: 30px;
+                z-index: 9999;
+                background-color: white;
+                border: 2px solid #555;
+                border-radius: 8px;
+                padding: 12px 15px;
+                font-size: 14px;
+                box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+            ">
+            
+            <b style="font-size:16px;">Land Use</b><br><br>
+            
+            <div>
+            <span style="background:#87CEEB;
+            display:inline-block;width:18px;height:18px;
+            margin-right:7px;border:1px solid #555;"></span>
+            Common
+            </div>
+            
+            <div>
+            <span style="background:#D4A017;
+            display:inline-block;width:18px;height:18px;
+            margin-right:7px;border:1px solid #555;"></span>
+            Dodlu
+            </div>
+            
+            <div>
+            <span style="background:#FFD700;
+            display:inline-block;width:18px;height:18px;
+            margin-right:7px;border:1px solid #555;"></span>
+            Mettu
+            </div>
+            
+            <div>
+            <span style="background:#8B5A2B;
+            display:inline-block;width:18px;height:18px;
+            margin-right:7px;border:1px solid #555;"></span>
+            Orchard
+            </div>
+            
+            <div>
+            <span style="background:#90EE90;
+            display:inline-block;width:18px;height:18px;
+            margin-right:7px;border:1px solid #555;"></span>
+            Pallam
+            </div>
+            
+            <div>
+            <span style="background:#CD853F;
+            display:inline-block;width:18px;height:18px;
+            margin-right:7px;border:1px solid #555;"></span>
+            Podu
+            </div>
+            
+            <div>
+            <span style="background:#BDBDBD;
+            display:inline-block;width:18px;height:18px;
+            margin-right:7px;border:1px solid #555;"></span>
+            No E-PRA data
+            </div>
+            
+            </div>
+            """
+            
+            m.get_root().html.add_child(
+                folium.Element(legend_html)
+            )
             st_folium(
                 m,
                 width=None,
