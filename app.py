@@ -1219,6 +1219,7 @@ elif page == "Dashboards":
         
                 folium.GeoJson(
                     feature,
+                    name="E-PRA Plots",
                     style_function=lambda feature,
                         color=fill_color: {
                             "fillColor": color,
