@@ -1075,8 +1075,27 @@ elif page == "Dashboards":
             m = folium.Map(
                 location=[18.3, 83.0],
                 zoom_start=14,
-                control_scale=True
+                control_scale=True,
+                tiles=None
             )
+            
+            # Satellite base map
+            folium.TileLayer(
+                tiles="https://server.arcgisonline.com/ArcGIS/rest/services/"
+                      "World_Imagery/MapServer/tile/{z}/{y}/{x}",
+                attr="Esri World Imagery",
+                name="Satellite",
+                overlay=False,
+                control=True
+            ).add_to(m)
+            
+            # Normal street map option
+            folium.TileLayer(
+                tiles="OpenStreetMap",
+                name="Street Map",
+                overlay=False,
+                control=True
+            ).add_to(m)
         
             # ---------------------------------------------------------
             # Add GeoJSON plots
@@ -1216,7 +1235,7 @@ elif page == "Dashboards":
             # ---------------------------------------------------------
             # Display map
             # ---------------------------------------------------------
-        
+            folium.LayerControl().add_to(m)
             st_folium(
                 m,
                 width=None,
