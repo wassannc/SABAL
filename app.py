@@ -1107,30 +1107,17 @@ elif page == "Dashboards":
             # ---------------------------------------------------------
             
             land_use_colors = {
-                "cropland": "#2E8B57",
-                "orchard": "#8B5A2B",
-                "fallow": "#D4A017",
-                "forest": "#228B22",
-                "homestead": "#1E90FF",
-                "pasture": "#9ACD32",
-                "water": "#00BFFF",
+                "common": "#87CEEB",
+                "dodlu": "#D4A017",
                 "mettu": "#FFD700",
+                "orchard": "#8B5A2B",
+                "pallam": "#90EE90",
+                "podu": "#CD853F",
             }
             # ---------------------------------------------------------
             # Add GeoJSON plots
             # ---------------------------------------------------------
-            st.write("Land use values in E-PRA:")
-            st.write(
-                sorted(
-                    epra_df["land_use"]
-                    .dropna()
-                    .astype(str)
-                    .str.strip()
-                    .str.lower()
-                    .unique()
-                    .tolist()
-                )
-            )
+            
             for feature in geojson_data["features"]:
         
                 properties = feature.get("properties", {})
