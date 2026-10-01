@@ -1044,7 +1044,13 @@ elif page == "Dashboards":
             st.write("Sample GeoJSON Plot IDs:")
             st.write(geojson_plot_ids[:10])
 
-            
+            st.write(
+                "GeoJSON geometry types:",
+                list(set(
+                    feature.get("geometry", {}).get("type")
+                    for feature in geojson_data["features"]
+                ))
+            )
             # =========================================================
             # E-PRA INTERACTIVE MAP
             # =========================================================
@@ -1236,7 +1242,51 @@ elif page == "Dashboards":
             # ---------------------------------------------------------
             # Display map
             # ---------------------------------------------------------
+            # ---------------------------------------------------------
+            # Automatically fit map to all GeoJSON plots
+            # ---------------------------------------------------------
+            
+            all_coords = []
+            
+            def extract_coordinates(coords):
+                if isinstance(coords[0], (int, float)):
+                    all_coords.append(coords)
+                else:
+                    for item in coords:
+                        extract_coordinates(item)
+            
+            
+            for feature in geojson_data["features"]:
+            
+                geometry = feature.get("geometry")
+            
+                if geometry and geometry.get("coordinates"):
+                    extract_coordinates(
+                        geometry["coordinates"]
+                    )
+            
+            
+            if all_coords:
+            
+                lons = [coord[0] for coord in all_coords]
+                lats = [coord[1] for coord in all_coords]
+            
+                min_lon = min(lons)
+                max_lon = max(lons)
+            
+                min_lat = min(lats)
+                max_lat = max(lats)
+            
+                m.fit_bounds(
+                    [
+                        [min_lat, min_lon],
+                        [max_lat, max_lon]
+                    ]
+                )
+            
+            # Layer control
             folium.LayerControl().add_to(m)
+            
             st_folium(
                 m,
                 width=None,
