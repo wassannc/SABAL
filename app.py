@@ -1102,7 +1102,19 @@ elif page == "Dashboards":
                 overlay=False,
                 control=True
             ).add_to(m)
-        
+            # ---------------------------------------------------------
+            # LAND USE COLOURS
+            # ---------------------------------------------------------
+            
+            land_use_colors = {
+                "cropland": "#2E8B57",
+                "orchard": "#8B5A2B",
+                "fallow": "#D4A017",
+                "forest": "#228B22",
+                "homestead": "#1E90FF",
+                "pasture": "#9ACD32",
+                "water": "#00BFFF",
+            }
             # ---------------------------------------------------------
             # Add GeoJSON plots
             # ---------------------------------------------------------
@@ -1117,6 +1129,15 @@ elif page == "Dashboards":
                     continue
         
                 plot_id = str(plot_id).strip()
+
+                # Get land use from E-PRA data
+                land_use = plot_data.get("land_use", "").strip().lower()
+                
+                # Select colour based on land use
+                fill_color = land_use_colors.get(
+                    land_use,
+                    "#BDBDBD"
+                )
         
                 # Get E-PRA information
                 plot_data = epra_lookup.get(plot_id, {})
