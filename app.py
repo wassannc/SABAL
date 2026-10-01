@@ -1114,6 +1114,7 @@ elif page == "Dashboards":
                 "homestead": "#1E90FF",
                 "pasture": "#9ACD32",
                 "water": "#00BFFF",
+                "mettu": "#FFD700",
             }
             # ---------------------------------------------------------
             # Add GeoJSON plots
